@@ -785,7 +785,7 @@ function renderDays(days, todayDay) {
         </div>
         <div class="section-label" style="margin-top:0.5rem">${t.reflection}</div>
         <div class="reflection-q">${d.reflection}</div>
-        <textarea placeholder="..." onchange="saveNote(${d.day},this.value)">${note}</textarea>
+        <textarea data-day="${d.day}" placeholder="..." oninput="saveNote(${d.day},this.value)">${note}</textarea>
         <button class="done-btn"
           style="background:${isDone?'rgba(0,0,0,0.07)':color};color:${isDone?'#888':'white'}"
           onclick="toggleDone(event,${d.day})">
@@ -926,6 +926,18 @@ function saveNote(dayNum, value) {
   state.notes[dayNum] = value;
   saveState();
 }
+
+// Emergency save on tab close or page unload — catches anything oninput missed
+window.addEventListener('beforeunload', function() {
+  // Grab current values from all open textareas and save them
+  document.querySelectorAll('textarea[data-day]').forEach(function(ta) {
+    var dayNum = parseInt(ta.getAttribute('data-day'));
+    if (dayNum && ta.value !== undefined) {
+      state.notes[dayNum] = ta.value;
+    }
+  });
+  saveState();
+});
 
 function filterModule(modId, btn) {
   activeModule = modId;
