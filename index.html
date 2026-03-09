@@ -1169,8 +1169,7 @@ function updateTimer() {
   document.getElementById('t-mins').textContent  = String(mins).padStart(2,'0');
   document.getElementById('t-secs').textContent  = String(secs).padStart(2,'0');
 }
-setInterval(updateTimer, 1000);
-updateTimer();
+try { setInterval(updateTimer, 1000); updateTimer(); } catch(e) { console.error("Timer error:", e); }
 
 // ════════════════════════════════════════
 // SCROLL REVEAL
@@ -1191,10 +1190,31 @@ function initReveal() {
 // ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  renderAll();
-  initReveal();
-});
+// Fix: call immediately since script is at bottom of body
+// Wrap in try/catch so errors are visible, not silent blank page
+// setLang triggers data-en/data-es attribute rendering AND renderAll
+// Without this call, all data-en elements stay blank on first load
+try {
+  setLang('en');
+} catch(e) {
+  console.error('setLang failed:', e);
+  // Hard fallback: manually populate all data-en elements
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    el.innerHTML = el.getAttribute('data-en') || '';
+  });
+  try { renderAll(); } catch(e2) { console.error('renderAll also failed:', e2); }
+}
+
+// Init scroll reveal after tiny delay to ensure layout is painted
+setTimeout(initReveal, 150);
+
+// Safety net: also run on DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    renderAll();
+    setTimeout(initReveal, 150);
+  });
+}
 </script>
 </body>
 </html>
