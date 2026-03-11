@@ -335,12 +335,12 @@ h1 em { font-style: italic; color: var(--gold); }
   </a>
 
   <p class="note" id="note">
-    Questions? Write to <a href="mailto:hello@yourbloom.site">hello@yourbloom.site</a><br>
+    Questions? Write to <a href="/cdn-cgi/l/email-protection#a4ccc1c8c8cbe4ddcbd1d6c6c8cbcbc98ad7cdd0c1"><span class="__cf_email__" data-cfemail="f8909d949497b881978d8a9a94979795d68b918c9d">[email&#160;protected]</span></a><br>
     We're here for you. 🌿
   </p>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ════════════════════════════════════════
 // TRANSLATIONS
 // ════════════════════════════════════════
@@ -425,6 +425,7 @@ async function saveToCloud(email) {
       body: JSON.stringify({
         user_id: email,
         answers: progress,
+        lang: currentLang,
         timestamp: new Date().toISOString()
       })
     });
@@ -487,13 +488,4 @@ window.addEventListener('DOMContentLoaded', function() {
   const saved = localStorage.getItem('user_email');
   if (saved) {
     document.getElementById('email-input').value = saved;
-    document.getElementById('email-saved-msg').style.display = 'block';
-    const btn = document.getElementById('save-email-btn');
-    btn.textContent = '✓ Saved';
-    btn.style.opacity = '0.6';
-    btn.style.cursor = 'default';
-  }
-});
-</script>
-</body>
-</html>
+    document.getElem
