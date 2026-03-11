@@ -1270,7 +1270,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // 2. If email known — try to load from cloud (different browser/device)
+  // 2. Try to load from cloud by email (different browser/device)
   const email = localStorage.getItem('user_email');
   if (email) {
     try {
@@ -1288,7 +1288,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch(e) { console.log('Cloud load failed:', e); }
   }
 
-  // 3. Show onboarding — first time on this device/browser
+  // 3. No data — redirect to thankyou to set up
+  window.location.href = 'https://yourbloom.site/thankyou.html';
 });
 </script>
 </body>
