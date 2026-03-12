@@ -168,6 +168,12 @@ section { position: relative; }
   align-items: center; gap: 0.8rem;
   opacity: 0;
   animation: fadeUp 1s ease 1.1s forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation: fadeUp 1s ease 1.1s forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@supports not (animation-fill-mode: forwards) {
+  .hero-cta { opacity: 1; }
 }
 .btn-primary {
   display: inline-block;
@@ -1069,6 +1075,12 @@ const CONTENT = {
 // LANGUAGE SYSTEM
 // ════════════════════════════════════════
 let lang = 'en';
+
+// Fallback: ensure hero-cta is visible if animation fails
+setTimeout(function() {
+  var cta = document.querySelector('.hero-cta');
+  if (cta) cta.style.opacity = '1';
+}, 2000);
 
 function scrollTo_(e, id) {
   e.preventDefault();
