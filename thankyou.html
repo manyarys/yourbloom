@@ -7,183 +7,81 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --dark: #1c1a17;
-  --green: #3d5a47;
-  --green-light: #5a7d62;
-  --gold: #b8965a;
-  --white: #fffefb;
+  --dark: #1c1a17; --green: #3d5a47; --gold: #b8965a;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'Jost', system-ui, sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
 body {
-  background: var(--dark);
-  color: white;
-  font-family: var(--sans);
-  font-weight: 300;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1.5rem;
-  overflow-x: hidden;
-  position: relative;
-}
-body::before, body::after {
-  content: '';
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
+  background: var(--dark); color: white;
+  font-family: var(--sans); font-weight: 300;
+  min-height: 100svh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 3rem 1.5rem; position: relative; overflow: hidden;
 }
 body::before {
-  width: 400px; height: 400px;
-  background: var(--green);
-  top: -100px; right: -100px;
-  opacity: 0.2;
+  content: ''; position: fixed;
+  width: 500px; height: 500px; background: var(--green);
+  border-radius: 50%; filter: blur(100px);
+  top: -150px; right: -150px; opacity: 0.18; pointer-events: none;
 }
 body::after {
-  width: 300px; height: 300px;
-  background: #8b6b4a;
-  bottom: -60px; left: -60px;
-  opacity: 0.15;
+  content: ''; position: fixed;
+  width: 350px; height: 350px; background: #8b6b4a;
+  border-radius: 50%; filter: blur(90px);
+  bottom: -100px; left: -100px; opacity: 0.14; pointer-events: none;
 }
-
-/* Lang */
 .lang-bar {
   position: fixed; top: 0; left: 0; right: 0;
   display: flex; justify-content: flex-end;
-  padding: 0.6rem 1.5rem;
-  z-index: 10; gap: 0.3rem;
+  padding: 0.7rem 1.5rem; z-index: 10; gap: 0.3rem;
 }
 .lang-btn {
   background: none; border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.5); border-radius: 20px;
+  color: rgba(255,255,255,0.45); border-radius: 20px;
   padding: 0.25rem 0.8rem; font-family: var(--sans);
-  font-size: 0.7rem; letter-spacing: 0.1em;
-  cursor: pointer; transition: all 0.2s;
+  font-size: 0.7rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
 }
-.lang-btn.active { background: rgba(255,255,255,0.12); color: white; border-color: rgba(255,255,255,0.4); }
-
-/* Card */
+.lang-btn.active { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.35); }
 .card {
-  max-width: 520px; width: 100%;
-  text-align: center;
-  animation: fadeUp 0.9s ease forwards;
-  opacity: 0;
+  max-width: 480px; width: 100%; text-align: center;
+  animation: fadeUp 0.9s ease forwards; opacity: 0;
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.bloom-icon {
-  font-size: 3.5rem; margin-bottom: 1.5rem; display: block;
-  animation: pulse 3s ease infinite;
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
+.bloom-icon { font-size: 4rem; display: block; margin-bottom: 1.8rem; animation: pulse 3s ease infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 .eyebrow {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.8rem;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem;
 }
-h1 {
-  font-family: var(--serif); font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem;
-}
+h1 { font-family: var(--serif); font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
 h1 em { font-style: italic; color: var(--gold); }
-.subtitle {
+.message {
   font-family: var(--serif); font-style: italic;
-  font-size: 1.05rem; color: rgba(255,255,255,0.5);
-  margin-bottom: 2rem; line-height: 1.6;
+  font-size: 1.05rem; color: rgba(255,255,255,0.55);
+  line-height: 1.75; margin-bottom: 2.5rem;
 }
-
-/* Setup form */
-.setup-block {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 24px; padding: 1.8rem 1.8rem;
-  margin-bottom: 1rem; text-align: left;
-  transition: border-color 0.4s;
+.check-block {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 1.5rem 1.8rem; margin-bottom: 2rem; text-align: left;
 }
-.setup-block.success { border-color: rgba(127,201,154,0.5); background: rgba(127,201,154,0.04); }
-.setup-title {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.35); margin-bottom: 0.5rem;
+.check-title {
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem;
 }
-.setup-desc {
-  font-size: 0.82rem; color: rgba(255,255,255,0.45);
-  line-height: 1.6; margin-bottom: 1.2rem;
+.check-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  margin-bottom: 0.9rem; font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.5;
 }
-.field { margin-bottom: 0.9rem; }
-.field:last-of-type { margin-bottom: 0; }
-.field-label {
-  font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 0.4rem; display: block;
-}
-.field-input {
-  width: 100%;
-  padding: 0.75rem 1rem; border-radius: 40px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.07);
-  color: white; font-family: var(--sans); font-size: 0.88rem;
-  outline: none; transition: border-color 0.2s;
-}
-.field-input::placeholder { color: rgba(255,255,255,0.25); }
-.field-input:focus { border-color: rgba(255,255,255,0.4); }
-.field-input.error { border-color: rgba(255,100,100,0.7); animation: shake 0.3s ease; }
-.field-input[type="date"] { color-scheme: dark; }
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
-/* Submit button */
-.btn-start {
-  display: block; width: 100%;
-  background: var(--green); color: white;
-  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 1.1rem 2rem; border-radius: 60px;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all 0.3s; box-shadow: 0 8px 32px rgba(61,90,71,0.4);
-  margin-bottom: 1rem;
-}
-.btn-start:hover {
-  background: var(--green-light); transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(61,90,71,0.5);
-}
-.btn-start:disabled { opacity: 0.6; cursor: default; transform: none; }
-
-/* Success state */
-.success-msg {
-  display: none;
-  font-size: 0.82rem; color: #7fc99a;
-  margin-top: 0.8rem; line-height: 1.6;
-  text-align: center;
-  animation: fadeIn 0.4s ease;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.note { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.7; text-align: center; }
+.check-item:last-child { margin-bottom: 0; }
+.check-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+.note { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.7; }
 .note a { color: rgba(255,255,255,0.4); text-decoration: none; }
-
-/* Confetti */
 #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
-.cp {
-  position: absolute; width: 8px; height: 8px;
-  border-radius: 2px; animation: fall 1.5s ease-in forwards;
-}
+.cp { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: fall 1.5s ease-in forwards; }
 @keyframes fall {
   0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
   100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
@@ -191,233 +89,73 @@ h1 em { font-style: italic; color: var(--gold); }
 </style>
 </head>
 <body>
-
 <div class="lang-bar">
   <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
   <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
 </div>
-
 <div id="confetti"></div>
-
 <div class="card">
-  <span class="bloom-icon">&#127800;</span>
-  <p class="eyebrow" id="eyebrow">Welcome to the program</p>
+  <span class="bloom-icon">🌸</span>
+  <p class="eyebrow" id="eyebrow">Payment confirmed</p>
   <h1 id="heading">You chose <em>yourself.</em></h1>
-  <p class="subtitle" id="subtitle">That took courage. And it starts right now.</p>
-
-  <div class="setup-block" id="setup-block">
-    <div class="setup-title" id="setup-title">SET UP YOUR PROGRAM</div>
-    <p class="setup-desc" id="setup-desc">Fill in your details once — your program will open instantly and your progress will be saved across all your devices.</p>
-
-    <div class="field">
-      <label class="field-label" id="label-name">Your first name</label>
-      <input type="text" id="input-name" class="field-input" placeholder="e.g. Maria" maxlength="30" />
-    </div>
-
-    <div class="field">
-      <label class="field-label" id="label-date">Program start date</label>
-      <input type="date" id="input-date" class="field-input" />
-    </div>
-
-    <div class="field">
-      <label class="field-label" id="label-email">Your email</label>
-      <input type="email" id="input-email" class="field-input" placeholder="your@email.com" />
-    </div>
-
-    <p class="success-msg" id="success-msg">&#10003; All saved! Opening your program...</p>
+  <p class="message" id="message">That took courage. Your journey begins now — and we're here with you every step of the way.</p>
+  <div class="check-block">
+    <div class="check-title" id="check-title">WHAT HAPPENS NEXT</div>
+    <div class="check-item"><span class="check-icon">📧</span><span id="step1">Check your inbox — a personal link to your program is on its way. It opens on any device.</span></div>
+    <div class="check-item"><span class="check-icon">🌿</span><span id="step2">Click the link and set up your program in 30 seconds — your name and start date, that's it.</span></div>
+    <div class="check-item"><span class="check-icon">✨</span><span id="step3">Day 1 takes about 20 minutes. There's no rush — but there's no better moment than now.</span></div>
   </div>
-
-  <button class="btn-start" id="start-btn" onclick="startProgram()">Open my program &rarr;</button>
-
-  <p class="note" id="note">
-    Questions? Write to <a href="mailto:hello@yourbloom.site">hello@yourbloom.site</a><br>
-    We're here for you. &#127807;
-  </p>
+  <p class="note" id="note">Don't see the email? Check your spam folder.<br>Questions? <a href="mailto:hello@yourbloom.site">hello@yourbloom.site</a></p>
 </div>
-
 <script>
-var currentLang = 'en';
-
 var TEXT = {
   en: {
-    eyebrow: "Welcome to the program",
-    heading: "You chose <em>yourself.</em>",
-    subtitle: "That took courage. And it starts right now.",
-    setup_title: "SET UP YOUR PROGRAM",
-    setup_desc: "Fill in your details once — your program will open instantly and your progress will be saved across all your devices.",
-    label_name: "Your first name",
-    label_date: "Program start date",
-    label_email: "Your email",
-    name_ph: "e.g. Maria",
-    email_ph: "your@email.com",
-    success_msg: "\u2713 All saved! Opening your program...",
-    start_btn: "Open my program \u2192",
-    note: "Questions? Write to <a href='mailto:hello@yourbloom.site'>hello@yourbloom.site</a><br>We're here for you. \uD83C\uDF3F"
+    eyebrow: "Payment confirmed", heading: "You chose <em>yourself.</em>",
+    message: "That took courage. Your journey begins now — and we're here with you every step of the way.",
+    check_title: "WHAT HAPPENS NEXT",
+    step1: "Check your inbox — a personal link to your program is on its way. It opens on any device.",
+    step2: "Click the link and set up your program in 30 seconds — your name and start date, that's it.",
+    step3: "Day 1 takes about 20 minutes. There's no rush — but there's no better moment than now.",
+    note: "Don't see the email? Check your spam folder.<br>Questions? <a href='mailto:hello@yourbloom.site'>hello@yourbloom.site</a>"
   },
   es: {
-    eyebrow: "Bienvenida al programa",
-    heading: "Te elegiste <em>a ti misma.</em>",
-    subtitle: "Eso requiri\u00F3 valent\u00EDa. Y comienza ahora mismo.",
-    setup_title: "CONFIGURA TU PROGRAMA",
-    setup_desc: "Completa tus datos una sola vez — tu programa se abrir\u00E1 al instante y tu progreso se guardar\u00E1 en todos tus dispositivos.",
-    label_name: "Tu nombre",
-    label_date: "Fecha de inicio del programa",
-    label_email: "Tu email",
-    name_ph: "ej. Mar\u00EDa",
-    email_ph: "tu@email.com",
-    success_msg: "\u2713 \u00A1Guardado! Abriendo tu programa...",
-    start_btn: "Abrir mi programa \u2192",
-    note: "\u00BFPreguntas? Esch\u00EDbenos a <a href='mailto:hello@yourbloom.site'>hello@yourbloom.site</a><br>Estamos aqu\u00ED para ti. \uD83C\uDF3F"
+    eyebrow: "Pago confirmado", heading: "Te elegiste <em>a ti misma.</em>",
+    message: "Eso requirió valentía. Tu camino comienza ahora — y estamos contigo en cada paso.",
+    check_title: "QUÉ PASA AHORA",
+    step1: "Revisa tu bandeja de entrada — un enlace personal a tu programa está en camino. Se abre en cualquier dispositivo.",
+    step2: "Haz clic en el enlace y configura tu programa en 30 segundos — tu nombre y fecha de inicio, eso es todo.",
+    step3: "El Día 1 toma unos 20 minutos. No hay prisa — pero no hay mejor momento que ahora.",
+    note: "¿No ves el email? Revisa tu carpeta de spam.<br>¿Preguntas? <a href='mailto:hello@yourbloom.site'>hello@yourbloom.site</a>"
   }
 };
-
 function setLang(l) {
-  currentLang = l;
   var t = TEXT[l];
-  document.getElementById('btn-en').classList.toggle('active', l === 'en');
-  document.getElementById('btn-es').classList.toggle('active', l === 'es');
-  document.getElementById('eyebrow').textContent      = t.eyebrow;
-  document.getElementById('heading').innerHTML        = t.heading;
-  document.getElementById('subtitle').textContent     = t.subtitle;
-  document.getElementById('setup-title').textContent  = t.setup_title;
-  document.getElementById('setup-desc').textContent   = t.setup_desc;
-  document.getElementById('label-name').textContent   = t.label_name;
-  document.getElementById('label-date').textContent   = t.label_date;
-  document.getElementById('label-email').textContent  = t.label_email;
-  document.getElementById('input-name').placeholder   = t.name_ph;
-  document.getElementById('input-email').placeholder  = t.email_ph;
-  document.getElementById('success-msg').textContent  = t.success_msg;
-  document.getElementById('start-btn').textContent    = t.start_btn;
-  document.getElementById('note').innerHTML           = t.note;
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-es').classList.toggle('active', l==='es');
+  document.getElementById('eyebrow').textContent     = t.eyebrow;
+  document.getElementById('heading').innerHTML       = t.heading;
+  document.getElementById('message').textContent     = t.message;
+  document.getElementById('check-title').textContent = t.check_title;
+  document.getElementById('step1').textContent       = t.step1;
+  document.getElementById('step2').textContent       = t.step2;
+  document.getElementById('step3').textContent       = t.step3;
+  document.getElementById('note').innerHTML          = t.note;
 }
-
-// ══════════════════════════════
-// CLOUD SYNC
-// ══════════════════════════════
-var CLOUD_URL = "https://script.google.com/macros/s/AKfycbxGZkzFhueZBa4azCj5aVtEp4w3oCFCIN80jZpOnrtVFGly51md2K58ntX0TkgHa9jLDQ/exec";
-
-function saveToCloud(email, name, startDate) {
-  var progress = JSON.stringify({
-    lang: currentLang,
-    name: name,
-    startDate: startDate,
-    completed: {},
-    notes: {},
-    streak: 0,
-    lastCompleted: null
-  });
-  fetch(CLOUD_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify({
-      user_id: email,
-      answers: progress,
-      lang: currentLang,
-      timestamp: new Date().toISOString()
-    })
-  }).catch(function(e) { console.error("Sync error:", e); });
-}
-
-// ══════════════════════════════
-// START PROGRAM
-// ══════════════════════════════
-function startProgram() {
-  var name      = document.getElementById('input-name').value.trim();
-  var startDate = document.getElementById('input-date').value;
-  var email     = document.getElementById('input-email').value.trim();
-  var t = TEXT[currentLang];
-  var ok = true;
-
-  if (!name) {
-    document.getElementById('input-name').classList.add('error');
-    setTimeout(function() { document.getElementById('input-name').classList.remove('error'); }, 1000);
-    ok = false;
-  }
-  if (!startDate) {
-    document.getElementById('input-date').classList.add('error');
-    setTimeout(function() { document.getElementById('input-date').classList.remove('error'); }, 1000);
-    ok = false;
-  }
-  if (!email || email.indexOf('@') < 1) {
-    document.getElementById('input-email').classList.add('error');
-    setTimeout(function() { document.getElementById('input-email').classList.remove('error'); }, 1000);
-    ok = false;
-  }
-  if (!ok) return;
-
-  // Save everything to localStorage
-  localStorage.setItem('user_email', email);
-  var state = {
-    lang: currentLang,
-    name: name,
-    startDate: startDate,
-    completed: {},
-    notes: {},
-    streak: 0,
-    lastCompleted: null
-  };
-  localStorage.setItem('icm2_state', JSON.stringify(state));
-
-  // Sync to cloud
-  saveToCloud(email, name, startDate);
-
-  // Show success and redirect
-  document.getElementById('setup-block').classList.add('success');
-  document.getElementById('success-msg').style.display = 'block';
-  var btn = document.getElementById('start-btn');
-  btn.disabled = true;
-  btn.textContent = t.success_msg;
-
-  setTimeout(function() {
-    window.location.href = 'https://yourbloom.site/course.html';
-  }, 1500);
-}
-
-// ══════════════════════════════
-// CONFETTI
-// ══════════════════════════════
 function launchConfetti() {
   var colors = ['#b8965a','#5a7d62','#4a6ec2','#c2566a','#f0e8de','#ffffff'];
-  var container = document.getElementById('confetti');
+  var c = document.getElementById('confetti');
   for (var i = 0; i < 80; i++) {
-    var p = document.createElement('div');
-    p.className = 'cp';
-    p.style.left = (Math.random()*100) + 'vw';
+    var p = document.createElement('div'); p.className = 'cp';
+    p.style.left = (Math.random()*100)+'vw';
     p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDelay = (Math.random()) + 's';
-    p.style.animationDuration = (1 + Math.random()) + 's';
-    p.style.width = (5 + Math.random()*8) + 'px';
-    p.style.height = (5 + Math.random()*8) + 'px';
-    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
-    container.appendChild(p);
+    p.style.animationDelay = Math.random()+'s';
+    p.style.animationDuration = (1+Math.random())+'s';
+    p.style.width = (5+Math.random()*8)+'px'; p.style.height = p.style.width;
+    p.style.borderRadius = Math.random()>0.5?'50%':'3px';
+    c.appendChild(p);
   }
-  setTimeout(function() { container.innerHTML = ''; }, 3000);
+  setTimeout(function(){ c.innerHTML=''; }, 3000);
 }
-
-// ══════════════════════════════
-// INIT
-// ══════════════════════════════
-var today = new Date().toISOString().slice(0,10);
-document.getElementById('input-date').value = today;
-
-// Prefill email if already saved
-var savedEmail = localStorage.getItem('user_email');
-if (savedEmail) {
-  document.getElementById('input-email').value = savedEmail;
-}
-
-// Prefill name if already saved
-var savedState = localStorage.getItem('icm2_state');
-if (savedState) {
-  try {
-    var s = JSON.parse(savedState);
-    if (s.name) document.getElementById('input-name').value = s.name;
-    if (s.startDate) document.getElementById('input-date').value = s.startDate;
-    if (s.lang) { currentLang = s.lang; }
-  } catch(e) {}
-}
-
-setLang(currentLang);
 setTimeout(launchConfetti, 400);
 </script>
 </body>

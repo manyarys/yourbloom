@@ -1010,7 +1010,11 @@ function resetProgram() {
   if (!confirm(msg)) return;
   localStorage.removeItem('icm2_state');
   localStorage.removeItem('user_email');
-  window.location.href = 'https://yourbloom.site/thankyou.html';
+  state = { lang: 'en', name: '', startDate: null, completed: {}, notes: {}, streak: 0, lastCompleted: null };
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('onboarding').style.display = '';
+  document.getElementById('ob-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('ob-name').value = '';
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1265,14 +1269,21 @@ window.addEventListener('DOMContentLoaded', async () => {
   const today = new Date().toISOString().slice(0,10);
   document.getElementById('ob-date').value = today;
 
+  // Check if email passed in URL ?e=email@example.com
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlEmail = urlParams.get('e');
+  if (urlEmail) {
+    localStorage.setItem('user_email', urlEmail);
+  }
+
   // 1. Try localStorage first (same browser)
   if (loadState() && state.name && state.startDate) {
     launchApp();
     return;
   }
 
-  // 2. Try to load from cloud by email (different browser/device)
-  const email = localStorage.getItem('user_email');
+  // 2. Try cloud by email (different browser/device)
+  const email = urlEmail || localStorage.getItem('user_email');
   if (email) {
     try {
       const res = await fetch(CLOUD_URL + '?email=' + encodeURIComponent(email));
@@ -1289,8 +1300,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch(e) { console.log('Cloud load failed:', e); }
   }
 
-  // 3. No data — redirect to thankyou to set up
-  window.location.href = 'https://yourbloom.site/thankyou.html';
+  // 3. Show onboarding — first time or after reset
+  // (onboarding is already visible by default)
 });
 </script>
 </body>
