@@ -625,49 +625,48 @@ let soundPlaying = false;
 let soundNodes = [];
 
 // ════════════════════════════════════════════════════════════
-// PERSISTENCE
+// PERSISTENCE — работает через token из URL (?token=XXX)
+// Воркер: GET /progress?token=XXX  →  { exists, progress }
+//         POST /progress           ←  { token, progress }
 // ════════════════════════════════════════════════════════════
 const CLOUD_URL = "https://yourbloom.site/api/progress";
 
+function getToken() {
+  // Сначала из URL, потом из localStorage
+  const p = new URLSearchParams(window.location.search);
+  const t = p.get('token');
+  if (t) { localStorage.setItem('bloom_token', t); return t; }
+  return localStorage.getItem('bloom_token');
+}
+
 function saveState() {
-  state.lastSaved = Date.now(); // временная метка для разрешения конфликтов между устройствами
+  state.lastSaved = Date.now();
   localStorage.setItem('icm2_state', JSON.stringify(state));
-  const email = localStorage.getItem('user_email');
-  if (email) {
-    fetch(CLOUD_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: email,
-        answers: JSON.stringify(state),
-        lang: state.lang || 'en',
-        timestamp: new Date().toISOString()
-      })
-    }).then(function(res) {
-      if (!res.ok) console.error("Sync error: HTTP " + res.status);
-    }).catch(function(e) { console.error("Sync error:", e); });
-  }
+  const token = getToken();
+  if (!token) return;
+  fetch(CLOUD_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, progress: state })
+  }).then(function(res) {
+    if (!res.ok) res.text().then(t => console.error("Sync error:", res.status, t));
+  }).catch(function(e) { console.error("Sync error:", e); });
 }
 
 function loadState() {
   const saved = localStorage.getItem('icm2_state');
-  if (saved) {
-    state = { ...state, ...JSON.parse(saved) };
-    return true;
-  }
+  if (saved) { state = { ...state, ...JSON.parse(saved) }; return true; }
   return false;
 }
 
-async function loadFromCloud(email) {
+async function loadFromCloud(token) {
   try {
-    const res = await fetch(CLOUD_URL + "?email=" + encodeURIComponent(email), {
-      cache: "no-store"
-    });
+    const res = await fetch(CLOUD_URL + "?token=" + encodeURIComponent(token), { cache: "no-store" });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    if (data && data.answers) {
-      const cloud = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
-      // Сравниваем временные метки — побеждает более свежая версия
+    if (data && data.exists && data.progress) {
+      const cloud = data.progress;
+      // Побеждает более свежая версия
       const localRaw = localStorage.getItem('icm2_state');
       const local = localRaw ? JSON.parse(localRaw) : null;
       const cloudTs = cloud.lastSaved || 0;
@@ -675,13 +674,13 @@ async function loadFromCloud(email) {
       if (!local || cloudTs >= localTs) {
         state = { ...state, ...cloud };
       } else {
-        // Локальное новее — пушим в облако, оставляем локальное
+        // Локальное новее — пушим в облако
         state = { ...state, ...local };
         fetch(CLOUD_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: email, answers: JSON.stringify(state), lang: state.lang || 'en', timestamp: new Date().toISOString() })
-        }).catch(function(e) { console.error("Re-sync error:", e); });
+          body: JSON.stringify({ token, progress: state })
+        }).catch(function(e) { console.error("Re-sync:", e); });
       }
       localStorage.setItem('icm2_state', JSON.stringify(state));
       return true;
@@ -1047,6 +1046,7 @@ function resetProgram() {
   if (!confirm(msg)) return;
   localStorage.removeItem('icm2_state');
   localStorage.removeItem('user_email');
+  localStorage.removeItem('bloom_token');
   state = { lang: 'en', name: '', startDate: null, completed: {}, notes: {}, streak: 0, lastCompleted: null };
   document.getElementById('app').style.display = 'none';
   document.getElementById('onboarding').style.display = '';
@@ -1321,41 +1321,27 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (cta) cta.style.opacity = '1';
   }, 2000);
 
-  // Check email in URL ?e=email@example.com
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlEmail = urlParams.get('e');
-  if (urlEmail) {
-    localStorage.setItem('user_email', urlEmail);
-  }
+  // Получаем token из URL ?token=XXX или localStorage
+  const token = getToken();
 
-  const email = urlEmail || localStorage.getItem('user_email');
-
-  // ALWAYS try cloud first if email known — cloud is source of truth
-  if (email) {
+  // Если есть token — всегда грузим с облака первым
+  if (token) {
     try {
-      const res = await fetch(CLOUD_URL + '?email=' + encodeURIComponent(email), { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      if (data && data.answers && data.answers !== '{}') {
-        const parsed = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
-        if (parsed.name && parsed.startDate) {
-          // Cloud overwrites local — always
-          state = { ...state, ...parsed };
-          localStorage.setItem('icm2_state', JSON.stringify(state));
-          launchApp();
-          return;
-        }
+      const loaded = await loadFromCloud(token);
+      if (loaded && state.name && state.startDate) {
+        launchApp();
+        return;
       }
     } catch(e) { console.log('Cloud load failed, trying local:', e); }
   }
 
-  // Fallback: localStorage (no internet or no cloud data)
+  // Fallback: localStorage (нет интернета или токена)
   if (loadState() && state.name && state.startDate) {
     launchApp();
     return;
   }
 
-  // Show onboarding — first time or after reset
+  // Показываем онбординг — первый запуск или после сброса
 });
 </script>
 </body>
