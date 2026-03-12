@@ -627,35 +627,48 @@ let soundNodes = [];
 // ════════════════════════════════════════════════════════════
 // PERSISTENCE
 // ════════════════════════════════════════════════════════════
-function localDateISO(date) {
-  const d = date || new Date();
-  return d.getFullYear() + '-' +
-    String(d.getMonth()+1).padStart(2,'0') + '-' +
-    String(d.getDate()).padStart(2,'0');
-}
-
 const CLOUD_URL = "https://script.google.com/macros/s/AKfycbxGZkzFhueZBa4azCj5aVtEp4w3oCFCIN80jZpOnrtVFGly51md2K58ntX0TkgHa9jLDQ/exec";
 
+let _saveTimer = null;
 function saveState() {
-  try { localStorage.setItem('icm2_state', JSON.stringify(state)); } catch(e) { console.warn('localStorage unavailable'); }
+  // 1. Сохраняем локально немедленно
+  try { localStorage.setItem('icm2_state', JSON.stringify(state)); } catch(e) {}
+
+  // 2. Сохраняем в облако с debounce 2 сек — не спамим запросами
   const email = localStorage.getItem('user_email');
-  if (email) {
+  if (!email) return;
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(function() {
     fetch(CLOUD_URL, {
-      method: "POST",
-      mode: "no-cors",
+      method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify({
         user_id: email,
         answers: JSON.stringify(state),
         lang: state.lang || 'en',
         timestamp: new Date().toISOString()
       })
-    }).catch(function(e) { console.error("Sync error:", e); });
-  }
+    }).catch(function(e) { console.warn('Cloud save failed:', e); });
+  }, 2000);
 }
 
+// Аварийное сохранение при закрытии вкладки
+window.addEventListener('beforeunload', function() {
+  const email = localStorage.getItem('user_email');
+  if (!email) return;
+  // sendBeacon работает даже при закрытии страницы
+  try {
+    navigator.sendBeacon(CLOUD_URL, JSON.stringify({
+      user_id: email,
+      answers: JSON.stringify(state),
+      lang: state.lang || 'en',
+      timestamp: new Date().toISOString()
+    }));
+  } catch(e) {}
+});
+
 function loadState() {
-  let saved;
-  try { saved = localStorage.getItem('icm2_state'); } catch(e) { return false; }
+  const saved = localStorage.getItem('icm2_state');
   if (saved) {
     state = { ...state, ...JSON.parse(saved) };
     return true;
@@ -735,15 +748,15 @@ function updateStreak() {
   const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
   
   // Start counting from today if something done today, else from yesterday
-  const todayIso = localDateISO(today);
+  const todayIso = today.toISOString().slice(0,10);
   const completedDates = Object.values(state.completed).filter(Boolean);
   const doneToday = completedDates.some(d => d === todayIso);
   
   let streak = 0;
   let check = doneToday ? new Date(today) : new Date(yesterday);
-  let safety = 0;
-  while (safety++ < 365) {
-    const iso = localDateISO(check);
+  
+  while (true) {
+    const iso = check.toISOString().slice(0,10);
     const dayCompleted = completedDates.some(d => d === iso);
     if (dayCompleted) { streak++; check.setDate(check.getDate()-1); }
     else break;
@@ -954,7 +967,7 @@ function toggleDone(e, dayNum) {
   e.stopPropagation();
   const wasNotDone = !state.completed[dayNum];
   if (wasNotDone) {
-    const today = localDateISO();
+    const today = new Date().toISOString().slice(0,10);
     state.completed[dayNum] = today;
     updateStreak();
     saveState();
@@ -1021,7 +1034,7 @@ function resetProgram() {
   state = { lang: 'en', name: '', startDate: null, completed: {}, notes: {}, streak: 0, lastCompleted: null };
   document.getElementById('app').style.display = 'none';
   document.getElementById('onboarding').style.display = '';
-  document.getElementById('ob-date').value = localDateISO();
+  document.getElementById('ob-date').value = new Date().toISOString().slice(0,10);
   document.getElementById('ob-name').value = '';
 }
 
@@ -1277,39 +1290,57 @@ window.addEventListener('DOMContentLoaded', async () => {
   const today = localDateISO();
   document.getElementById('ob-date').value = today;
 
-  // Check if email passed in URL ?e=
   const urlParams = new URLSearchParams(window.location.search);
   const urlEmail = urlParams.get('e');
-  if (urlEmail) {
-    localStorage.setItem('user_email', urlEmail);
-  }
+  if (urlEmail) localStorage.setItem('user_email', urlEmail);
 
-  // 1. Try localStorage first (same browser)
-  if (loadState() && state.name && state.startDate) {
-    launchApp();
-    return;
-  }
-
-  // 2. Try cloud by email (different browser/device)
   const email = urlEmail || localStorage.getItem('user_email');
+
+  // 1. Показываем localStorage сразу — чтобы курс не висел пустым пока грузится облако
+  const hasLocal = loadState() && state.name && state.startDate;
+  if (hasLocal) launchApp();
+
+  // 2. Всегда проверяем облако — даже если localStorage непустой
+  // Это решает проблему: данные записанные с другого браузера/устройства теперь подгружаются
   if (email) {
     try {
       const res = await fetch(CLOUD_URL + '?email=' + encodeURIComponent(email));
       const data = await res.json();
       if (data && data.answers && data.answers !== '{}') {
-        const parsed = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
-        if (parsed.name && parsed.startDate) {
-          state = { ...state, ...parsed };
+        const cloud = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
+        if (cloud.name && cloud.startDate) {
+          // Мержим облачные данные с локальными — берём более свежие completed и notes
+          const localCompleted = state.completed || {};
+          const cloudCompleted = cloud.completed || {};
+          const mergedCompleted = { ...localCompleted, ...cloudCompleted };
+
+          const localNotes = state.notes || {};
+          const cloudNotes = cloud.notes || {};
+          // Для заметок берём облачную версию если она не пустая
+          const mergedNotes = { ...localNotes };
+          Object.keys(cloudNotes).forEach(k => {
+            if (cloudNotes[k]) mergedNotes[k] = cloudNotes[k];
+          });
+
+          state = { ...state, ...cloud, completed: mergedCompleted, notes: mergedNotes };
           localStorage.setItem('icm2_state', JSON.stringify(state));
-          launchApp();
-          return;
+
+          // Перерисовываем если приложение уже запущено (обновляем данные)
+          if (hasLocal) {
+            updateStreak();
+            renderAll();
+          } else {
+            launchApp();
+          }
         }
       }
     } catch(e) { console.log('Cloud load failed:', e); }
   }
 
-  // 3. Show onboarding — first time or after reset
-  // (onboarding is already visible by default)
+  // 3. Онбординг — если нет ни локальных ни облачных данных
+  if (!hasLocal && (!email)) {
+    // onboarding уже показан по умолчанию
+  }
 });
 </script>
 </body>
