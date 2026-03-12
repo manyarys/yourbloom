@@ -33,7 +33,7 @@ body { background: #faf8f5; font-family: 'Georgia', serif; min-height: 100vh; ov
 .name-input, .date-input { width: 100%; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 0.75rem 1rem; color: white; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border 0.2s; }
 .name-input:focus, .date-input:focus { border-color: rgba(255,255,255,0.35); }
 .name-input::placeholder { color: rgba(255,255,255,0.25); }
-.start-btn { width: 100%; max-width: 420px; padding: 1rem; background: var(--gold); border: none; border-radius: 16px; color: var(--dark); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; }
+.start-btn { width: 100%; max-width: 420px; padding: 1rem; background: var(--gold); border: none; border-radius: 16px; color: var(--dark); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; touch-action: manipulation; -webkit-tap-highlight-color: transparent; min-height: 52px; }
 .start-btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
 /* ── MAIN APP ── */
@@ -190,7 +190,7 @@ textarea:focus { border-color: rgba(0,0,0,0.25); background: white; }
     <input class="date-input" id="ob-date" type="date">
   </div>
 
-  <button class="start-btn" id="ob-btn" onclick="startProgram()">Begin my journey →</button>
+  <button class="start-btn" id="ob-btn" type="button">Begin my journey →</button>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -629,43 +629,22 @@ let soundNodes = [];
 // ════════════════════════════════════════════════════════════
 const CLOUD_URL = "https://script.google.com/macros/s/AKfycbxGZkzFhueZBa4azCj5aVtEp4w3oCFCIN80jZpOnrtVFGly51md2K58ntX0TkgHa9jLDQ/exec";
 
-let _saveTimer = null;
 function saveState() {
-  // 1. Сохраняем локально немедленно
-  try { localStorage.setItem('icm2_state', JSON.stringify(state)); } catch(e) {}
-
-  // 2. Сохраняем в облако с debounce 2 сек — не спамим запросами
+  localStorage.setItem('icm2_state', JSON.stringify(state));
   const email = localStorage.getItem('user_email');
-  if (!email) return;
-  clearTimeout(_saveTimer);
-  _saveTimer = setTimeout(function() {
+  if (email) {
     fetch(CLOUD_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: "POST",
+      mode: "no-cors",
       body: JSON.stringify({
         user_id: email,
         answers: JSON.stringify(state),
         lang: state.lang || 'en',
         timestamp: new Date().toISOString()
       })
-    }).catch(function(e) { console.warn('Cloud save failed:', e); });
-  }, 2000);
+    }).catch(function(e) { console.error("Sync error:", e); });
+  }
 }
-
-// Аварийное сохранение при закрытии вкладки
-window.addEventListener('beforeunload', function() {
-  const email = localStorage.getItem('user_email');
-  if (!email) return;
-  // sendBeacon работает даже при закрытии страницы
-  try {
-    navigator.sendBeacon(CLOUD_URL, JSON.stringify({
-      user_id: email,
-      answers: JSON.stringify(state),
-      lang: state.lang || 'en',
-      timestamp: new Date().toISOString()
-    }));
-  } catch(e) {}
-});
 
 function loadState() {
   const saved = localStorage.getItem('icm2_state');
@@ -708,10 +687,26 @@ function selectLang(lang) {
 }
 
 function startProgram() {
-  const name = document.getElementById('ob-name').value.trim();
-  const dateVal = document.getElementById('ob-date').value;
-  if (!name) { document.getElementById('ob-name').focus(); return; }
-  if (!dateVal) { document.getElementById('ob-date').focus(); return; }
+  const nameEl = document.getElementById('ob-name');
+  const dateEl = document.getElementById('ob-date');
+  const name = nameEl.value.trim();
+  const dateVal = dateEl.value;
+
+  // На мобильном .focus() вызывает клавиатуру и глотает тап — показываем ошибку иначе
+  if (!name) {
+    nameEl.style.borderColor = '#c2566a';
+    nameEl.style.boxShadow = '0 0 0 2px rgba(194,86,106,0.3)';
+    nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => { nameEl.style.borderColor = ''; nameEl.style.boxShadow = ''; }, 2000);
+    return;
+  }
+  if (!dateVal) {
+    dateEl.style.borderColor = '#c2566a';
+    dateEl.style.boxShadow = '0 0 0 2px rgba(194,86,106,0.3)';
+    dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => { dateEl.style.borderColor = ''; dateEl.style.boxShadow = ''; }, 2000);
+    return;
+  }
   state.name = name;
   state.startDate = dateVal;
   saveState();
@@ -1286,61 +1281,55 @@ function setVolume(val) {
 // ════════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════════
+// Bind start button properly for mobile
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('ob-btn');
+  if (btn) {
+    btn.addEventListener('click', startProgram);
+    btn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      startProgram();
+    });
+  }
+});
+
 window.addEventListener('DOMContentLoaded', async () => {
-  const today = localDateISO();
+  const today = new Date().toISOString().slice(0,10);
   document.getElementById('ob-date').value = today;
 
+  // Check if email passed in URL ?e=email@example.com
   const urlParams = new URLSearchParams(window.location.search);
   const urlEmail = urlParams.get('e');
-  if (urlEmail) localStorage.setItem('user_email', urlEmail);
+  if (urlEmail) {
+    localStorage.setItem('user_email', urlEmail);
+  }
 
+  // 1. Try localStorage first (same browser)
+  if (loadState() && state.name && state.startDate) {
+    launchApp();
+    return;
+  }
+
+  // 2. Try cloud by email (different browser/device)
   const email = urlEmail || localStorage.getItem('user_email');
-
-  // 1. Показываем localStorage сразу — чтобы курс не висел пустым пока грузится облако
-  const hasLocal = loadState() && state.name && state.startDate;
-  if (hasLocal) launchApp();
-
-  // 2. Всегда проверяем облако — даже если localStorage непустой
-  // Это решает проблему: данные записанные с другого браузера/устройства теперь подгружаются
   if (email) {
     try {
       const res = await fetch(CLOUD_URL + '?email=' + encodeURIComponent(email));
       const data = await res.json();
       if (data && data.answers && data.answers !== '{}') {
-        const cloud = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
-        if (cloud.name && cloud.startDate) {
-          // Мержим облачные данные с локальными — берём более свежие completed и notes
-          const localCompleted = state.completed || {};
-          const cloudCompleted = cloud.completed || {};
-          const mergedCompleted = { ...localCompleted, ...cloudCompleted };
-
-          const localNotes = state.notes || {};
-          const cloudNotes = cloud.notes || {};
-          // Для заметок берём облачную версию если она не пустая
-          const mergedNotes = { ...localNotes };
-          Object.keys(cloudNotes).forEach(k => {
-            if (cloudNotes[k]) mergedNotes[k] = cloudNotes[k];
-          });
-
-          state = { ...state, ...cloud, completed: mergedCompleted, notes: mergedNotes };
+        const parsed = typeof data.answers === 'string' ? JSON.parse(data.answers) : data.answers;
+        if (parsed.name && parsed.startDate) {
+          state = { ...state, ...parsed };
           localStorage.setItem('icm2_state', JSON.stringify(state));
-
-          // Перерисовываем если приложение уже запущено (обновляем данные)
-          if (hasLocal) {
-            updateStreak();
-            renderAll();
-          } else {
-            launchApp();
-          }
+          launchApp();
+          return;
         }
       }
     } catch(e) { console.log('Cloud load failed:', e); }
   }
 
-  // 3. Онбординг — если нет ни локальных ни облачных данных
-  if (!hasLocal && (!email)) {
-    // onboarding уже показан по умолчанию
-  }
+  // 3. Show onboarding — first time or after reset
+  // (onboarding is already visible by default)
 });
 </script>
 </body>
