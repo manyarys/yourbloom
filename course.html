@@ -627,6 +627,17 @@ let soundNodes = [];
 // ════════════════════════════════════════════════════════════
 // PERSISTENCE
 // ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════
+// DATE HELPER — всегда локальная дата, не UTC
+// ════════════════════════════════════════════════════════════
+function localDateISO(date) {
+  const d = date || new Date();
+  const year  = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day   = String(d.getDate()).padStart(2, '0');
+  return year + '-' + month + '-' + day;
+}
+
 const CLOUD_URL = "https://script.google.com/macros/s/AKfycbxGZkzFhueZBa4azCj5aVtEp4w3oCFCIN80jZpOnrtVFGly51md2K58ntX0TkgHa9jLDQ/exec";
 
 function saveState() {
@@ -727,7 +738,7 @@ function updateStreak() {
   const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
   
   // Start counting from today if something done today, else from yesterday
-  const todayIso = today.toISOString().slice(0,10);
+  const todayIso = localDateISO(today);
   const completedDates = Object.values(state.completed).filter(Boolean);
   const doneToday = completedDates.some(d => d === todayIso);
   
@@ -735,7 +746,7 @@ function updateStreak() {
   let check = doneToday ? new Date(today) : new Date(yesterday);
   
   while (true) {
-    const iso = check.toISOString().slice(0,10);
+    const iso = localDateISO(check);
     const dayCompleted = completedDates.some(d => d === iso);
     if (dayCompleted) { streak++; check.setDate(check.getDate()-1); }
     else break;
@@ -946,7 +957,7 @@ function toggleDone(e, dayNum) {
   e.stopPropagation();
   const wasNotDone = !state.completed[dayNum];
   if (wasNotDone) {
-    const today = new Date().toISOString().slice(0,10);
+    const today = localDateISO();
     state.completed[dayNum] = today;
     updateStreak();
     saveState();
@@ -1013,7 +1024,7 @@ function resetProgram() {
   state = { lang: 'en', name: '', startDate: null, completed: {}, notes: {}, streak: 0, lastCompleted: null };
   document.getElementById('app').style.display = 'none';
   document.getElementById('onboarding').style.display = '';
-  document.getElementById('ob-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('ob-date').value = localDateISO();
   document.getElementById('ob-name').value = '';
 }
 
@@ -1266,7 +1277,7 @@ function setVolume(val) {
 // INIT
 // ════════════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', async () => {
-  const today = new Date().toISOString().slice(0,10);
+  const today = localDateISO();
   document.getElementById('ob-date').value = today;
 
   // Check if email passed in URL ?e=email@example.com
