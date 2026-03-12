@@ -1009,7 +1009,8 @@ function resetProgram() {
     : '¿Segura de que quieres borrar todo tu progreso?';
   if (!confirm(msg)) return;
   localStorage.removeItem('icm2_state');
-  location.reload();
+  localStorage.removeItem('user_email');
+  window.location.href = 'https://yourbloom.site/thankyou.html';
 }
 
 // ════════════════════════════════════════════════════════════
