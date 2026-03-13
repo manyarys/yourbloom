@@ -692,8 +692,8 @@ async function loadFromCloud(token) {
     const res = await fetch(CLOUD_URL + "?token=" + encodeURIComponent(token), { cache: "no-store" });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    if (data && data.exists && data.progress) {
-      const cloud = data.progress;
+    if (data && data.exists) {
+      const cloud = data.progress || { name: '', email: '', completed: {}, notes: {} };
       // Побеждает более свежая версия
       const localRaw = localStorage.getItem('icm2_state');
       const local = localRaw ? JSON.parse(localRaw) : null;
