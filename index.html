@@ -555,6 +555,21 @@ section { position: relative; }
 }
 
 /* ══════════════════════════════════════════
+   ENROLLED BANNER
+══════════════════════════════════════════ */
+.enrolled-banner {
+  background: rgba(61,90,71,0.08);
+  border: 1px solid rgba(61,90,71,0.2);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 2rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════
    PRICING
 ══════════════════════════════════════════ */
 .pricing-section {
@@ -896,7 +911,6 @@ footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
       <h2 class="section-title" data-en="What women say<br>after <em>30 days</em>" data-es="Lo que dicen las mujeres<br>después de <em>30 días</em>"></h2>
     </div>
     <div class="testimonials-grid reveal" id="testimonials-grid"></div>
-    <p class="testimonial-placeholder reveal" id="testimonial-placeholder"></p>
   </div>
 </section>
 
@@ -905,6 +919,11 @@ footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
 ══════════════════════════════════════════ -->
 <section class="pricing-section" id="pricing">
   <div class="pricing-inner">
+    <!-- Already enrolled banner -->
+    <div class="enrolled-banner reveal">
+      <p data-en="Already enrolled? 🌸 Check your email for your personal course link — that's your way back in." data-es="¿Ya estás inscrita? 🌸 Revisa tu correo electrónico — ahí está tu enlace personal para acceder al curso.">Already enrolled? 🌸 Check your email for your personal course link — that's your way back in.</p>
+    </div>
+
     <div class="reveal">
       <p class="section-eyebrow" data-en="Enrollment" data-es="Inscripción"></p>
       <h2 class="section-title" data-en="Choose yourself<br><em>today.</em>" data-es="Elígete<br><em>hoy.</em>"></h2>
@@ -1001,7 +1020,6 @@ const CONTENT = {
       { text: "I loved that it's in Spanish too! The prompts made me face things I was avoiding — guilt, perfectionism. After 30 days I feel more connected to my body and emotions. This is my new ritual.", name: "Maria P., 27", loc: "Mexico City, Mexico", emoji: "❤️" },
       { text: "Tried many programs before — most felt performative. This one is different: no pressure to be 'positive' all the time. Some days I wrote anger, sadness, and it was allowed. Ended up feeling more authentic.", name: "Jessica R., 34", loc: "Toronto, Canada", emoji: "💫" },
     ],
-    placeholder: "⬆ These testimonials are placeholders — replace with real ones as they arrive.",
     includes: [
       "Lifetime access to the 30-day program portal",
       "Daily theory, practice + reflection prompt",
@@ -1054,7 +1072,6 @@ const CONTENT = {
       { text: "¡Me encantó que también esté en español! Los prompts me hicieron enfrentar cosas que evitaba — culpa, perfeccionismo. Después de 30 días me siento más conectada con mi cuerpo y mis emociones.", name: "María P., 27", loc: "Ciudad de México, México", emoji: "❤️" },
       { text: "Probé muchos programas antes — la mayoría se sentían superficiales. Este es diferente: sin presión de ser 'positiva' todo el tiempo. Algunos días escribí enojo, tristeza, y estuvo permitido. Terminé sintiéndome más auténtica.", name: "Jessica R., 34", loc: "Toronto, Canadá", emoji: "💫" },
     ],
-    placeholder: "⬆ Estos testimonios son de muestra — reemplázalos con los reales cuando lleguen.",
     includes: [
       "Acceso de por vida al portal del programa de 30 días",
       "Teoría diaria, práctica + pregunta de reflexión",
@@ -1155,7 +1172,6 @@ function renderAll() {
           </div>
         </div>
       </div>`).join('');
-  document.getElementById('testimonial-placeholder').textContent = c.placeholder;
 
   // Includes
   document.getElementById('includes-list').innerHTML =
