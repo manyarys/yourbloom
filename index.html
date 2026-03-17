@@ -12,18 +12,19 @@
     gtag('config', 'G-PQC226LY14');
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourBloom Studio | AI Aesthetics & Systems</title>
+  <title>YourBloom Studio | AI Aesthetics</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@200;300;400&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --cream: #f7f3ed;
-      --pink: #fdf0f0;
+      --cream: #faf8f5;
+      --soft-pink: #fdf0f0;
+      --accent-pink: #e8c6cc;
       --dark-pink: #c2566a;
       --gold: #b8965a;
-      --dark: #1c1a17;
-      --text: #2e2a24;
+      --text-dark: #3a3530;
+      --text-muted: #7a7268;
     }
 
     * {
@@ -34,134 +35,184 @@
 
     body {
       background: var(--cream);
-      color: var(--text);
+      color: var(--text-dark);
       font-family: 'Jost', sans-serif;
-      line-height: 1.6;
+      font-weight: 300;
+      line-height: 1.8;
       overflow-x: hidden;
     }
 
-    /* Container for mobile responsiveness */
     .container {
-      width: 90%;
-      max-width: 1100px;
+      width: 85%;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    /* HERO SECTION */
+    /* HERO SECTION - LIGHT & AIRY */
     .hero {
-      background: var(--dark);
-      color: white;
-      padding: 100px 0 60px;
+      background: linear-gradient(135deg, #fffefb 0%, #fdf0f0 100%);
+      padding: 120px 0 80px;
       text-align: center;
-      min-height: 80vh;
+      min-height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .hero-tag {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      font-weight: 400;
     }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      margin-bottom: 20px;
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 25px;
     }
 
     .hero h1 em {
       color: var(--gold);
       font-style: italic;
+      font-weight: 400;
     }
 
     .hero p {
-      font-size: clamp(1rem, 3vw, 1.25rem);
-      color: rgba(255, 255, 255, 0.7);
-      max-width: 700px;
-      margin: 0 auto 40px;
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 45px;
+      font-weight: 300;
     }
 
     .btn {
       display: inline-block;
       background: var(--dark-pink);
       color: white;
-      padding: 15px 35px;
+      padding: 14px 32px;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: 500;
+      font-size: 0.85rem;
+      font-weight: 400;
       letter-spacing: 1px;
-      transition: 0.3s;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(194, 86, 106, 0.2);
     }
 
     .btn:hover {
-      transform: translateY(-3px);
-      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(194, 86, 106, 0.3);
+      opacity: 0.95;
     }
 
     /* SERVICES SECTION */
     .services {
-      padding: 80px 0;
-      background: white;
+      padding: 100px 0;
+      background: #fffefb;
     }
 
     .section-title {
       text-align: center;
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      margin-bottom: 50px;
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 60px;
+      color: var(--text-dark);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
     }
 
     .card {
-      background: var(--pink);
-      padding: 40px;
-      border-radius: 30px;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: 0.3s;
+      background: white;
+      padding: 45px 35px;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+      text-align: left;
     }
 
     .card:hover {
-      border-color: var(--dark-pink);
+      transform: translateY(-5px);
+      border-color: var(--accent-pink);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: block;
     }
 
     .card h3 {
       font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
       margin-bottom: 15px;
-      color: var(--dark);
+      font-weight: 500;
+      color: var(--text-dark);
     }
 
-    /* PORTFOLIO PREVIEW */
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* PORTFOLIO */
     .portfolio-preview {
-      padding: 80px 0;
+      padding: 100px 0;
       background: var(--cream);
       text-align: center;
     }
 
     .sample-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 20px;
-      margin-top: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      margin-top: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
+    /* FOOTER - GENTLE */
     footer {
-      background: var(--dark);
-      color: rgba(255, 255, 255, 0.4);
-      padding: 40px 0;
+      background: #fffefb;
+      color: var(--text-muted);
+      padding: 60px 0;
       text-align: center;
-      font-size: 0.8rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      font-weight: 300;
     }
 
     /* Mobile specific fixes */
     @media (max-width: 600px) {
       .hero {
-        padding: 60px 20px;
+        padding: 80px 20px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
       }
 
       .card {
-        padding: 25px;
+        padding: 30px 25px;
       }
     }
   </style>
@@ -171,12 +222,9 @@
 
   <section class="hero">
     <div class="container">
-      <div
-        style="color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 20px; text-transform: uppercase;">
-        YourBloom Studio</div>
+      <div class="hero-tag">YourBloom Studio</div>
       <h1>Bloom <em>Through</em><br>Intelligence</h1>
-      <p>We transform business chaos into elegant, AI-driven systems. Custom Notion Architecture, Premium Content
-        Creation, and Data Excellence.</p>
+      <p>We craft elegant AI systems and Notion architectures for founders who value time and aesthetics.</p>
       <a href="https://linkedin.com/in/mariya-novikova-0475a82a5/" class="btn">Work With Me</a>
     </div>
   </section>
@@ -186,17 +234,19 @@
       <h2 class="section-title">Studio Services</h2>
       <div class="grid">
         <div class="card">
-          <h3>💎 Notion Systems</h3>
-          <p>Custom workspaces and client portals that turn your daily operations into a seamless flow.</p>
+          <span class="card-icon">💎</span>
+          <h3>Notion Systems</h3>
+          <p>Bespoke workspaces designed to turn organizational chaos into a calm, productive flow.</p>
         </div>
         <div class="card">
-          <h3>✍️ AI Content Engine</h3>
-          <p>Strategic social media and blog content using Claude 3.5 Sonnet for a human-like, high-conversion voice.
-          </p>
+          <span class="card-icon">✍️</span>
+          <h3>AI Content</h3>
+          <p>Premium copywriting using Claude 3.5 Sonnet to maintain a sophisticated and human brand voice.</p>
         </div>
         <div class="card">
-          <h3>📊 Data Intelligence</h3>
-          <p>Professional lead generation and CSV cleaning to power your marketing campaigns.</p>
+          <span class="card-icon">📊</span>
+          <h3>Data Insights</h3>
+          <p>Precise data cleaning and lead generation to fuel your business growth with clarity.</p>
         </div>
       </div>
     </div>
@@ -204,18 +254,17 @@
 
   <section class="portfolio-preview">
     <div class="container">
-      <h2 class="section-title">Our Work</h2>
-      <p>Based in Panama (EST), serving visionary founders worldwide.</p>
+      <h2 class="section-title">The Portfolio</h2>
+      <p>Based in Panama · Working in EST · Serving Worldwide</p>
       <div class="sample-box">
-        <!-- Здесь клиент увидит твои будущие скриншоты -->
-        <p style="font-style: italic; color: #888;">Portfolio updates in real-time. Contact for samples.</p>
+        New case studies blooming soon. Contact for private samples.
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 YourBloom Studio. Based in Panama. Operating in EST.</p>
+      <p>&copy; 2026 YOURBLOOM STUDIO. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 
