@@ -1636,34 +1636,26 @@
     // STREAK
     // ════════════════════════════════════════════════════════════
     function updateStreak() {
-      const today = new Date().toLocaleDateString();
-      const lastVisit = localStorage.getItem('last_visit_date');
-      let streak = parseInt(localStorage.getItem('bloom_streak')) || 0;
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
 
-      if (lastVisit !== today) {
-        // Если сегодня еще не заходили
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
+      // Start counting from today if something done today, else from yesterday
+      const todayIso = today.toISOString().slice(0, 10);
+      const completedDates = Object.values(state.completed).filter(Boolean);
+      const doneToday = completedDates.some(d => d === todayIso);
 
-        if (lastVisit === yesterday.toLocaleDateString()) {
-          streak += 1; // Заходили вчера — продолжаем серию
-        } else if (!lastVisit) {
-          streak = 1; // Самый первый вход
-        } else {
-          streak = 1; // Пропустили день — сброс на 1
-        }
+      let streak = 0;
+      let check = doneToday ? new Date(today) : new Date(yesterday);
 
-        localStorage.setItem('last_visit_date', today);
-        localStorage.setItem('bloom_streak', streak);
+      while (true) {
+        const iso = check.toISOString().slice(0, 10);
+        const dayCompleted = completedDates.some(d => d === iso);
+        if (dayCompleted) { streak++; check.setDate(check.getDate() - 1); }
+        else break;
       }
-
-      // Обновляем число на экране
-      const streakNumEl = document.getElementById('streak-num');
-      if (streakNumEl) streakNumEl.textContent = streak;
+      state.streak = streak;
+      saveState();
     }
-
-    // Запускаем при загрузке
-    window.addEventListener('DOMContentLoaded', updateStreak);
 
     // ════════════════════════════════════════════════════════════
     // RENDER ALL
@@ -2259,50 +2251,6 @@
 
       // Показываем онбординг — первый запуск (token уже сохранён, saveState() его подхватит)
     });
-  </script>
-  <!-- ── NOTION INTEGRATION (Premium Feature) ── -->
-  <div
-    style="max-width: 560px; margin: 2rem auto; padding: 1.5rem; background: #fdf0f0; border: 1px dashed #c2566a; border-radius: 20px; font-family: 'DM Sans', sans-serif;">
-    <h4 style="color: #c2566a; margin-bottom: 1rem; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">✨
-      YourBloom Cloud Sync</h4>
-    <p style="font-size: 0.8rem; color: #666; margin-bottom: 1rem;">Save your daily reflections directly to your
-      personal Notion workspace.</p>
-
-    <input type="password" id="notion-token" placeholder="Enter Notion Token"
-      style="width: 100%; padding: 0.6rem; margin-bottom: 0.5rem; border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);">
-    <input type="text" id="notion-page-id" placeholder="Enter Page ID"
-      style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);">
-
-    <button onclick="syncToNotion()"
-      style="width: 100%; background: #c2566a; color: white; border: none; padding: 0.8rem; border-radius: 12px; cursor: pointer; font-weight: 500;">
-      🚀 Send Insights to my Notion
-    </button>
-    <p id="sync-status" style="font-size: 0.7rem; text-align: center; margin-top: 0.5rem; color: #4a9e87;"></p>
-  </div>
-
-  <script>
-    async function syncToNotion() {
-      const token = document.getElementById('notion-token').value;
-      const pageId = document.getElementById('notion-page-id').value;
-      const status = document.getElementById('sync-status');
-
-      // Собираем все ответы из textarea
-      const notes = Array.from(document.querySelectorAll('textarea')).map(ta => ta.value).filter(v => v.trim() !== "");
-
-      if (!token || !pageId || notes.length === 0) {
-        alert("Please enter your Notion details and write some notes first! 🌸");
-        return;
-      }
-
-      status.textContent = "⌛ Syncing with YourBloom Cloud...";
-
-      // Это «заглушка» для фронтенда. В реальном YourBloom здесь будет вызов Cloudflare Worker.
-      // Но для презентации клиентам — кнопка уже работает и собирает данные!
-      setTimeout(() => {
-        status.textContent = "✅ Success! Check your Notion. (Demo Mode)";
-        console.log("Data to send:", notes);
-      }, 1500);
-    }
   </script>
 </body>
 
