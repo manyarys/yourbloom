@@ -24,6 +24,404 @@
       --cream: #f7f3ed;
       --white: #ffffff;
       --pink-soft: #fdf0f0;
+      --dark-pink: #c2566a;
+      --gold: #b8965a;
+      --text-dark: #2e2a24;
+      --text-muted: #6e675f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--text-dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(180deg, #fffefb 0%, var(--cream) 100%);
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4.2rem);
+      margin-bottom: 25px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-main {
+      display: inline-block;
+      background: var(--dark-pink);
+      color: white;
+      padding: 18px 45px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: 0.3s;
+      box-shadow: 0 10px 20px rgba(194, 86, 106, 0.3);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(194, 86, 106, 0.4);
+    }
+
+    /* EXPERTISE CARDS */
+    .expertise {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      padding: 40px;
+      border-radius: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: var(--cream);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--dark-pink);
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+
+    /* CASE STUDIES */
+    .cases {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .case-card {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .case-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* PRICING TABLES */
+    .pricing-section {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .price-grid {
+      display: grid;
+      gap: 40px;
+    }
+
+    .price-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      border-left: 3px solid var(--gold);
+      padding-left: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    th {
+      background: var(--pink-soft);
+      text-align: left;
+      padding: 15px 20px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--dark-pink);
+    }
+
+    td {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--pink-soft);
+      font-size: 0.95rem;
+    }
+
+    .price-tag {
+      font-weight: 500;
+      color: var(--dark-pink);
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .contact-form {
+      max-width: 500px;
+      margin: 40px auto 0;
+      text-align: left;
+      background: white;
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      font-family: inherit;
+    }
+
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 600px) {
+
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--pink-soft);
+        border-radius: 15px;
+        padding: 10px;
+      }
+
+      td {
+        text-align: right;
+        border: none;
+        padding: 8px 10px;
+      }
+
+      td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tag">YourBloom Studio</div>
+      <h1>Bloom <em>Through</em><br>Intelligence</h1>
+      <p>High-end AI automation and custom Notion architecture for visionary founders</p>
+      <a href="https://t.me/milamira" class="btn-main">Message on Telegram</a>
+    </div>
+  </section>
+
+  <section class="expertise">
+    <div class="container">
+      <h2 class="section-title">Studio Expertise</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>💎 Notion OS</h3>
+          <p>Bespoke workspaces built for scale and clarity</p>
+        </div>
+        <div class="card">
+          <h3>✍️ AI Copy</h3>
+          <p>Sophisticated brand voice powered by Claude 3.5</p>
+        </div>
+        <div class="card">
+          <h3>📊 Data Intelligence</h3>
+          <p>Precise lead generation and CSV operations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cases">
+    <div class="container">
+      <h2 class="section-title">Case Studies</h2>
+      <div class="grid">
+        <div class="case-card">
+          <h3>📞 Voxline AI</h3>
+          <p>Enterprise-grade AI Voice & VoIP infrastructure</p>
+          <a href="https://voxline.pro" target="_blank" class="case-link">Explore Project →</a>
+        </div>
+        <div class="case-card">
+          <h3>🗓️ GestionCitas</h3>
+          <p>Automated appointment systems for businesses</p>
+          <a href="https://gestioncitas.online" target="_blank" class="case-link">Explore Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section">
+    <div class="container">
+      <h2 class="section-title">Services & Pricing</h2>
+      <div class="price-grid">
+        <div>
+          <h3 class="price-group-title">⚡ Quick Tasks</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Delivery</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Service">Notion Page Setup</td>
+                <td data-label="Delivery">24h</td>
+                <td class="price-tag">$15</td>
+              </tr>
+              <tr>
+                <td data-label="Service">AI Social Media Pack</td>
+                <td data-label="Delivery">24h</td>
+                <td class="price-tag">$25</td>
+              </tr>
+              <tr>
+                <td data-label="Service">Data / CSV Cleanup</td>
+                <td data-label="Delivery">24h</td>
+                <td class="price-tag">$30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p style="margin-top: 30px; text-align: center; color: var(--text-muted);">Custom Enterprise solutions start from
+        $500. Contact for quote.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <h2 style="font-family: 'Playfair Display', serif;">Start Your Journey</h2>
+      <div class="contact-form">
+        <form action="https://formspree.io/f/xojkplda" method="POST">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <textarea name="message" placeholder="Project details" required></textarea>
+          <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send
+            Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 YourBloom Studio · Based in Panama · Operating in EST</p>
+  </footer>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQC226LY14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PQC226LY14');
+  </script>
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourBloom Studio | AI Aesthetics & Systems</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f7f3ed;
+      --white: #ffffff;
+      --pink-soft: #fdf0f0;
       --pink-accent: #e8c6cc;
       --dark-pink: #c2566a;
       --gold: #b8965a;
