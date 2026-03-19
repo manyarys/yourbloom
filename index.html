@@ -171,7 +171,7 @@
       font-style: italic;
     }
 
-    /* CASES & EXPERTISE GRID */
+    /* CASES GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -185,6 +185,9 @@
       transition: 0.3s;
       border: 1px solid transparent;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card:hover {
@@ -345,19 +348,26 @@
       <h2 class="section-title">Case Studies</h2>
       <div class="grid">
         <div class="card">
-          <h3>📞 Voxline AI</h3>
-          <p>Enterprise-grade AI Voice & VoIP infrastructure built for scale.</p>
+          <div>
+            <h3>🏛️ Business OS</h3>
+            <p>Our signature Notion workspace for tracking clients, projects, and finances in one place.</p>
+          </div>
+          <a href="https://yourbloom.notion.site/YourBloom-Studio-Notion-Business-OS-Demo-1a5918c7e1f180708f51ef67e2a9b691"
+            target="_blank" class="case-link">See Live Demo →</a>
+        </div>
+        <div class="card">
+          <div>
+            <h3>📞 Voxline AI</h3>
+            <p>Enterprise-grade AI Voice & VoIP infrastructure built for scale and automation.</p>
+          </div>
           <a href="https://voxline.pro" target="_blank" class="case-link">Explore Project →</a>
         </div>
         <div class="card">
-          <h3>🗓️ GestionCitas</h3>
-          <p>Sophisticated automated appointment systems for modern businesses.</p>
+          <div>
+            <h3>🗓️ GestionCitas</h3>
+            <p>Sophisticated automated appointment systems for modern service-based businesses.</p>
+          </div>
           <a href="https://gestioncitas.online" target="_blank" class="case-link">Explore Project →</a>
-        </div>
-        <div class="card">
-          <h3>💎 Notion OS</h3>
-          <p>Custom-built Business Operating Systems for focused management.</p>
-          <span class="case-link" style="color: var(--text-muted);">Internal Project</span>
         </div>
       </div>
     </div>
