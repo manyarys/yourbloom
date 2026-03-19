@@ -11,7 +11,7 @@
     content="We build Notion workspaces, AI automations and lead generation systems for small businesses and freelancers. Quick tasks from $15, delivered in 24h. Based in Panama, serving globally.">
   <meta property="og:title" content="YourBloom Studio — AI & Notion Systems">
   <meta property="og:description" content="Custom Notion architecture and AI automations for businesses.">
-  <meta property="og:image" content="about-me.jpg">
+  <meta property="og:image" content="logo.png">
   <meta property="og:url" content="https://yourbloom.site">
 
   <!-- Google Analytics -->
@@ -23,8 +23,7 @@
     gtag('config', 'G-PQC226LY14');
   </script>
 
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <link rel="icon" href="logo.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap"
     rel="stylesheet">
@@ -64,8 +63,19 @@
     /* HERO */
     .hero {
       background: linear-gradient(180deg, #fffefb 0%, var(--cream) 100%);
-      padding: 120px 0 80px;
+      padding: 100px 0 80px;
       text-align: center;
+    }
+
+    .main-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 30px;
+      transition: 0.5s;
+    }
+
+    .main-logo:hover {
+      transform: rotate(15deg);
     }
 
     .hero-tag {
@@ -209,7 +219,7 @@
       cursor: default;
     }
 
-    /* PRICING CARDS */
+    /* PRICING */
     .pricing-wrapper {
       display: flex;
       flex-direction: column;
@@ -391,6 +401,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
+      <img src="logo.png" alt="YourBloom Studio Logo" class="main-logo">
       <div class="hero-tag">YourBloom Studio</div>
       <h1>We build <em>Notion Systems</em> & <br>AI Automations</h1>
       <p>Stop drowning in tabs. We build the "business brain" you need to scale without the chaos.</p>
@@ -453,70 +464,47 @@
     </div>
   </section>
 
-  <!-- SERVICES & PRICING -->
+  <!-- PRICING -->
   <section class="section-padding pricing-section" style="background: var(--white);">
     <div class="container">
       <h2 class="section-title">Services & Pricing</h2>
-
       <div class="pricing-wrapper">
-        <!-- QUICK TASKS -->
         <div>
           <span class="price-group-title">⚡ Quick Tasks</span>
           <div class="price-cards-grid">
-            <div class="price-card">
-              <span class="p-meta">24h Delivery</span>
-              <h4>Notion Page Setup</h4>
-              <span class="p-val">$15</span>
+            <div class="price-card"><span class="p-meta">24h Delivery</span>
+              <h4>Notion Page Setup</h4><span class="p-val">$15</span>
             </div>
-            <div class="price-card">
-              <span class="p-meta">24h Delivery</span>
-              <h4>AI Social Media Pack</h4>
-              <span class="p-val">$25</span>
+            <div class="price-card"><span class="p-meta">24h Delivery</span>
+              <h4>AI Social Media Pack</h4><span class="p-val">$25</span>
             </div>
-            <div class="price-card">
-              <span class="p-meta">24h Delivery</span>
-              <h4>Data / CSV Cleanup</h4>
-              <span class="p-val">$30</span>
+            <div class="price-card"><span class="p-meta">24h Delivery</span>
+              <h4>Data / CSV Cleanup</h4><span class="p-val">$30</span>
             </div>
           </div>
         </div>
-
-        <!-- STUDIO PROJECTS -->
         <div>
           <span class="price-group-title">🌿 Studio Projects</span>
           <div class="price-cards-grid">
-            <div class="price-card">
-              <span class="p-meta">3 Days</span>
-              <h4>Basic Notion CRM</h4>
-              <span class="p-val">$75</span>
+            <div class="price-card"><span class="p-meta">3 Days</span>
+              <h4>Basic Notion CRM</h4><span class="p-val">$75</span>
             </div>
-            <div class="price-card">
-              <span class="p-meta">3-5 Days</span>
-              <h4>Full Business OS</h4>
-              <span class="p-val">$150</span>
+            <div class="price-card"><span class="p-meta">3-5 Days</span>
+              <h4>Full Business OS</h4><span class="p-val">$150</span>
             </div>
-            <div class="price-card">
-              <span class="p-meta">3 Days</span>
-              <h4>AI Content System</h4>
-              <span class="p-val">$120</span>
+            <div class="price-card"><span class="p-meta">3 Days</span>
+              <h4>AI Content System</h4><span class="p-val">$120</span>
             </div>
-            <div class="price-card">
-              <span class="p-meta">3-5 Days</span>
-              <h4>Zapier Automation</h4>
-              <span class="p-val">$200</span>
+            <div class="price-card"><span class="p-meta">3-5 Days</span>
+              <h4>Zapier Automation</h4><span class="p-val">$200</span>
             </div>
           </div>
         </div>
-
-        <!-- CUSTOM -->
         <div style="text-align: center;">
           <span class="price-group-title">🚀 Custom Solutions</span>
           <div class="price-card" style="max-width: 500px; margin: 0 auto;">
             <span class="p-meta">Enterprise & Voice</span>
-            <h4>AI Voice Integration</h4>
-            <span class="p-val">$1,000+</span>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">Custom architecture for complex
-              lead gen and telephony systems.</p>
+            <h4>AI Voice Integration</h4><span class="p-val">$1,000+</span>
             <a href="https://t.me/milamira" class="btn-main"
               style="margin-top: 20px; border: none; cursor: pointer;">Get a Custom Quote</a>
           </div>
@@ -544,36 +532,25 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="faq-section">
     <div class="container">
       <h2 class="section-title">Common Questions</h2>
       <div class="faq-grid">
         <div class="faq-item">
           <h4>Do I need to know Notion?</h4>
-          <p>Not at all. We build everything and walk you through it. It's designed to be simple.</p>
-        </div>
-        <div class="faq-item">
-          <h4>How fast is delivery?</h4>
-          <p>Quick tasks take 24-48h. Studio projects are delivered in 3-5 business days.</p>
+          <p>Not at all. We build everything and walk you through it.</p>
         </div>
         <div class="faq-item">
           <h4>How do I pay?</h4>
           <p>Via PayPal on completion. Projects over $200 require a 50% upfront deposit.</p>
         </div>
-        <div class="faq-item">
-          <h4>What if I'm not happy?</h4>
-          <p>Every project includes 1 free revision round. We work until you're satisfied.</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="section-padding contact-section">
     <div class="container">
       <h2 class="section-title">Start Your Journey</h2>
-      <p>Message us directly or fill out the form below.</p>
       <div class="contact-form">
         <form action="https://formspree.io/f/xojkplda" method="POST">
           <input type="text" name="name" placeholder="Name" required>
