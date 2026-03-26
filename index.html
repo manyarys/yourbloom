@@ -1340,6 +1340,194 @@
     .logo-svg-inline {
       display: inline-block;
     }
+
+    /* ── CARD PREVIEWS (from fixes) ── */
+    .card-preview {
+      width: 100%;
+      aspect-ratio: 16/9;
+      padding: 18px 20px 14px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .preview-coach {
+      background: #1a0e14;
+    }
+
+    .preview-coach .pc-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #c94070;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .preview-coach .pc-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+      font-size: 11px;
+      color: rgba(250, 245, 240, .5);
+    }
+
+    .preview-coach .pc-row span:last-child {
+      color: #faf5f0;
+      font-weight: 500;
+    }
+
+    .preview-coach .pc-badge {
+      display: inline-block;
+      background: rgba(201, 64, 112, .2);
+      color: #e87da0;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 9px;
+      margin-top: 8px;
+    }
+
+    .preview-portal {
+      background: #f5ede4;
+    }
+
+    .preview-portal .pp-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #8a7968;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .preview-portal .pp-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(61, 43, 53, .1);
+      font-size: 11px;
+      color: #3d2b35;
+    }
+
+    .preview-portal .pp-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c94070;
+      flex-shrink: 0;
+    }
+
+    .preview-content {
+      background: #0f1a2e;
+    }
+
+    .preview-content .pct-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #5b9bd5;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .preview-content .pct-week {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 8px;
+    }
+
+    .preview-content .pct-day {
+      flex: 1;
+      padding: 4px 0;
+      text-align: center;
+      font-size: 8px;
+      border-radius: 3px;
+      background: rgba(91, 155, 213, .12);
+      color: rgba(232, 240, 252, .35);
+    }
+
+    .preview-content .pct-day.on {
+      background: rgba(91, 155, 213, .3);
+      color: #a8d8f0;
+      font-weight: 700;
+    }
+
+    .preview-content .pct-text {
+      font-size: 10px;
+      color: rgba(232, 240, 252, .45);
+      line-height: 1.5;
+    }
+
+    .preview-bundle {
+      background: #1c1408;
+    }
+
+    .preview-bundle .pb-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #b8860b;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .preview-bundle .pb-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      font-size: 11px;
+      color: rgba(253, 248, 240, .7);
+    }
+
+    .preview-bundle .pb-check {
+      color: #b8860b;
+      font-size: 10px;
+    }
+
+    .preview-bundle .pb-save {
+      display: inline-block;
+      background: rgba(184, 134, 11, .2);
+      color: #d4a017;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 9px;
+      margin-top: 8px;
+    }
+
+    .preview-free {
+      background: #edf7ed;
+    }
+
+    .preview-free .pf-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #28a745;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .preview-free .pf-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(26, 58, 26, .08);
+      font-size: 11px;
+      color: #1a3a1a;
+    }
+
+    .preview-free .pf-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #28a745;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 
@@ -1375,7 +1563,8 @@
       <li><a href="#" onclick="showPage('about')">About</a></li>
       <li><a
           href="https://alabaster-plum-6a3.notion.site/YourBloom-Studio-Notion-Business-OS-Demo-327918c7e1f181e69a70ca6582e3da64?pvs=74"
-          target="_blank">Free Demo</a></li>
+          target="_blank" class="nav-cta"
+          style="background:transparent;border:1.5px solid var(--rose);color:var(--rose) !important;">Free Demo</a></li>
       <li><a href="#" onclick="showPage('work')" class="nav-cta">Work with us</a></li>
     </ul>
     <button class="hamburger" onclick="toggleMenu()">
@@ -1697,25 +1886,25 @@
       </div>
 
       <div class="filter-bar">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">Coaching</button>
-        <button class="filter-btn">Content</button>
-        <button class="filter-btn">AI Tools</button>
-        <button class="filter-btn">Free</button>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="coaching">Coaching</button>
+        <button class="filter-btn" data-filter="content">Content</button>
+        <button class="filter-btn" data-filter="ai tools">AI Tools</button>
+        <button class="filter-btn" data-filter="free">Free</button>
       </div>
 
       <section class="section">
         <div class="products-grid">
 
-          <div class="product-card">
-            <div class="product-img" style="background: var(--rose-pale);">
-              <div class="product-img-inner">
-                <div class="product-img-row rose"></div>
-                <div class="product-img-row"></div>
-                <div class="product-img-row short rose"></div>
-                <div class="product-img-row"></div>
-                <div class="product-img-row short"></div>
-              </div>
+          <!-- ── COACH OS ── -->
+          <div class="product-card" data-category="coaching">
+            <div class="card-preview preview-coach">
+              <div class="pc-label">Coach OS</div>
+              <div class="pc-row"><span>👥 Active clients</span><span>8</span></div>
+              <div class="pc-row"><span>💰 Revenue</span><span>$4,200</span></div>
+              <div class="pc-row"><span>🗓️ Sessions</span><span>12</span></div>
+              <div class="pc-row"><span>⏱️ Admin hours</span><span>0</span></div>
+              <div class="pc-badge">⭐ Most Popular</div>
             </div>
             <div class="product-body">
               <span class="product-tag">⭐ Most Popular</span>
@@ -1729,21 +1918,31 @@
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-img" style="background: #f5e8e0;">
-              <div class="product-img-inner">
-                <div class="product-img-row" style="background:#e0c4a8"></div>
-                <div class="product-img-row short"></div>
-                <div class="product-img-row" style="background:#e0c4a8"></div>
-                <div class="product-img-row"></div>
+          <!-- ── CLIENT PORTAL ── -->
+          <div class="product-card" data-category="coaching">
+            <div class="card-preview preview-portal">
+              <div class="pp-label">Client Portal</div>
+              <div class="pp-item">
+                <div class="pp-dot"></div>✉️ Start Here
+              </div>
+              <div class="pp-item">
+                <div class="pp-dot"></div>📋 Your Program
+              </div>
+              <div class="pp-item">
+                <div class="pp-dot"></div>🗓️ Session Notes
+              </div>
+              <div class="pp-item">
+                <div class="pp-dot"></div>📁 Resources
+              </div>
+              <div class="pp-item">
+                <div class="pp-dot"></div>📝 Contract
               </div>
             </div>
             <div class="product-body">
               <span class="product-tag">Coaching</span>
               <h3 class="product-name">Client Portal</h3>
               <p class="product-desc">A beautiful Notion client portal. Onboarding, program, sessions, resources,
-                contract
-                — all in one place for your clients.</p>
+                contract — all in one place for your clients.</p>
               <div class="product-footer">
                 <span class="product-price">$35</span>
                 <span class="product-link">View details →</span>
@@ -1751,12 +1950,20 @@
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-img" style="background: #f0e8f5;">
-              <div class="product-img-inner">
-                <div class="product-img-row" style="background:#d4b8e0"></div>
-                <div class="product-img-row short"></div>
-                <div class="product-img-row" style="background:#d4b8e0"></div>
+          <!-- ── AI CONTENT SYSTEM ── -->
+          <div class="product-card" data-category="ai tools">
+            <div class="card-preview preview-content">
+              <div class="pct-label">AI Content System</div>
+              <div class="pct-week">
+                <div class="pct-day on">M</div>
+                <div class="pct-day on">T</div>
+                <div class="pct-day on">W</div>
+                <div class="pct-day">T</div>
+                <div class="pct-day">F</div>
+                <div class="pct-day">S</div>
+                <div class="pct-day">S</div>
+              </div>
+              <div class="pct-text">"Write a post about client boundaries for coaches who struggle with saying no..."
               </div>
             </div>
             <div class="product-body">
@@ -1771,34 +1978,15 @@
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-img" style="background: #f5e8e0;">
-              <div class="product-img-inner">
-                <div class="product-img-row" style="background:#e0c4a8"></div>
-                <div class="product-img-row short"></div>
-                <div class="product-img-row"></div>
-              </div>
-            </div>
-            <div class="product-body">
-              <span class="product-tag">Coaching</span>
-              <h3 class="product-name">Client Portal</h3>
-              <p class="product-desc">A beautiful Notion client portal to share with clients. Onboarding, program,
-                sessions, resources, contract — all in one place.</p>
-              <div class="product-footer">
-                <span class="product-price">$35</span>
-                <span class="product-link">View details →</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-img" style="background: #e8eef5;">
-              <div class="product-img-inner">
-                <div class="product-img-row" style="background:#b8c8e0"></div>
-                <div class="product-img-row short"></div>
-                <div class="product-img-row" style="background:#b8c8e0"></div>
-                <div class="product-img-row short"></div>
-              </div>
+          <!-- ── BUNDLE ── -->
+          <div class="product-card" data-category="coaching">
+            <div class="card-preview preview-bundle">
+              <div class="pb-label">Bundle</div>
+              <div class="pb-row"><span class="pb-check">✓</span> Coach OS — $150</div>
+              <div class="pb-row"><span class="pb-check">✓</span> Client Portal — $35</div>
+              <div class="pb-row"><span class="pb-check">✓</span> 1 free revision</div>
+              <div class="pb-row"><span class="pb-check">✓</span> Pay on delivery</div>
+              <div class="pb-save">Save $35 vs separately</div>
             </div>
             <div class="product-body">
               <span class="product-tag">Bundle</span>
@@ -1812,22 +2000,33 @@
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-img" style="background: #f0f5e8;">
-              <div class="product-img-inner">
-                <div class="product-img-row" style="background:#c8e0b8"></div>
-                <div class="product-img-row short"></div>
-                <div class="product-img-row"></div>
+          <!-- ── FREE TEMPLATE ── -->
+          <div class="product-card" data-category="free">
+            <div class="card-preview preview-free">
+              <div class="pf-label">Quick Start — Free</div>
+              <div class="pf-item">
+                <div class="pf-dot"></div>Weekly focus dashboard
+              </div>
+              <div class="pf-item">
+                <div class="pf-dot"></div>Client contact list
+              </div>
+              <div class="pf-item">
+                <div class="pf-dot"></div>Content ideas tracker
+              </div>
+              <div class="pf-item">
+                <div class="pf-dot"></div>Monthly revenue snapshot
               </div>
             </div>
             <div class="product-body">
-              <span class="product-tag" style="background:rgba(184,134,11,.1);color:var(--gold)">Free</span>
+              <span class="product-tag" style="background:rgba(40,167,69,.1);color:#28a745">Free</span>
               <h3 class="product-name">Quick Start Template</h3>
               <p class="product-desc">A clean Notion starter page — weekly focus, contacts, content ideas, revenue
                 snapshot. Free forever.</p>
               <div class="product-footer">
                 <span class="product-price free">Free</span>
-                <span class="product-link">Download →</span>
+                <a class="product-link"
+                  href="https://alabaster-plum-6a3.notion.site/YourBloom-Studio-Notion-Business-OS-Demo-327918c7e1f181e69a70ca6582e3da64?pvs=74"
+                  target="_blank">Download →</a>
               </div>
             </div>
           </div>
@@ -1991,7 +2190,7 @@
             </div>
           </a>
 
-          <a href="mailto:hello@yourbloom.site" class="cbtn">
+          <a href="/cdn-cgi/l/email-protection#94fcf1f8f8fbd4edfbe1e6f6f8fbfbf9bae7fde0f1" class="cbtn">
             <div class="cbtn-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.8">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -1999,7 +2198,8 @@
               </svg>
             </div>
             <div>
-              <div class="cbtn-label">Email</div>hello@yourbloom.site
+              <div class="cbtn-label">Email</div><span class="__cf_email__"
+                data-cfemail="4c24292020230c3523393e2e20232321623f253829">[email&#160;protected]</span>
             </div>
           </a>
 
@@ -2157,7 +2357,8 @@
 
         <div class="footer-col">
           <h4>Reach us</h4>
-          <a href="mailto:hello@yourbloom.site">hello@yourbloom.site</a>
+          <a href="/cdn-cgi/l/email-protection#86eee3eaeae9c6ffe9f3f4e4eae9e9eba8f5eff2e3"><span class="__cf_email__"
+              data-cfemail="86eee3eaeae9c6ffe9f3f4e4eae9e9eba8f5eff2e3">[email&#160;protected]</span></a>
           <a href="https://wa.me/50763958484" target="_blank">WhatsApp +507 6395-8484</a>
           <a href="https://t.me/yourbloomstudio" target="_blank">Telegram</a>
           <a href="https://instagram.com/yourbloom.site" target="_blank">@yourbloom.site</a>
@@ -2171,6 +2372,7 @@
     </div>
   </footer>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2202,6 +2404,15 @@
     document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
+      const filter = b.dataset.filter || 'all';
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          const cat = (card.dataset.category || '').toLowerCase();
+          card.style.display = cat.includes(filter) ? '' : 'none';
+        }
+      });
     }));
   </script>
 
@@ -2209,12 +2420,4 @@
     style="position:fixed;bottom:28px;right:28px;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:999;">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
       <path
-        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-      <path
-        d="M12 0C5.373 0 0 5.373 0 12c0 2.108.549 4.086 1.512 5.8L0 24l6.362-1.489A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.586-.5-5.083-1.373l-.362-.214-3.777.885.924-3.671-.235-.376A9.952 9.952 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-    </svg>
-  </a>
-
-</body>
-
-</html>
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.
