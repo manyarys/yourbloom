@@ -1,4 +1,4 @@
-/* Bold editorial direction. Original logo typography and flower remain unchanged. */
+/* Bold editorial direction. Original flower retained; wordmark aligned with site typography. */
 @font-face{font-family:'DM Sans Display';src:url('fonts/dm-sans-black.woff') format('woff');font-weight:1000;font-style:normal;font-display:swap}
 :root{--display:'DM Sans Display','DM Sans',Arial,sans-serif;--ink:#190c13;--line:#c9b6be}
 body{color:var(--ink)}
@@ -6,8 +6,9 @@ body{color:var(--ink)}
 .site-header{background:var(--cream);border-bottom:1px solid var(--deep)}
 .header-inner{min-height:86px}
 .brand,.brand:hover{color:var(--deep)}
-.brand-type{font-family:var(--serif);font-size:1.9rem;font-weight:400;line-height:.9;letter-spacing:.015em;text-transform:none}
-.brand-type small{font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.14em}
+.brand-type{display:block;font-family:var(--display);font-size:1.65rem;font-weight:1000;line-height:.94;letter-spacing:-.055em;text-transform:uppercase}
+.brand-type small{font-family:var(--sans);font-size:.625rem;font-weight:400;line-height:1.2;text-transform:uppercase;letter-spacing:.24em;margin-top:.35rem}
+@media(max-width:390px){.brand-type{font-size:1.45rem}.brand-type small{margin-top:.3rem}.header-inner{column-gap:.75rem}}
 .site-nav{gap:1.65rem}
 .site-nav a{font-weight:600;font-size:.9375rem}
 .site-nav .button{padding:.8rem 1.7rem}
