@@ -22,7 +22,7 @@
   const button = document.getElementById('send-brief');
   const clear = document.getElementById('clear-form');
   const status = document.getElementById('form-status');
-  const endpoint = '/api/partnership-enquiry';
+  const endpoint = '/partnership-enquiry';
   let ready = false, sending = false;
   const unavailable = 'The enquiry form is temporarily unavailable. Please email hello@yourbloom.site.';
   function roleChanged() {

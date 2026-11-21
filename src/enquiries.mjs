@@ -1,4 +1,4 @@
-const ENDPOINT = '/api/partnership-enquiry';
+const ENDPOINT = '/partnership-enquiry';
 const MAX_BYTES = 16384;
 const COMMON = ['name', 'email', 'market', 'deadline', 'message'];
 const ROLE_FIELDS = {

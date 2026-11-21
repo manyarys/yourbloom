@@ -10,8 +10,8 @@
     "not_found_handling": "404-page",
     "binding": "ASSETS",
     "run_worker_first": [
-      "/api/partnership-enquiry",
-      "/api/partnership-enquiry/config"
+      "/partnership-enquiry",
+      "/partnership-enquiry/config"
     ]
   },
   "compatibility_flags": [

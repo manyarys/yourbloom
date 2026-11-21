@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 // All outbound Telegram requests are stubbed. These are not real credentials.
 const token = '123456:' + 'test_only_not_a_real_bot_token';
 const origin = 'https://yourbloom.site';
-const endpoint = origin + '/api/partnership-enquiry';
+const endpoint = origin + '/partnership-enquiry';
 const base = { audience: 'brand', name: 'Test founder', email: 'qa@example.invalid',
   market: 'International', message: 'A fictional campaign brief', privacy: true, company_url: '' };
 function environment(extra = {}) {
@@ -140,4 +140,12 @@ test('public page has no prototype copy and cannot send without consent', () => 
   assert.match(page, /id="send-brief"[^>]*type="submit"[^>]*disabled/);
   assert.match(page, /id="privacy"[^>]*required/);
   assert.match(page, /connect-src &#x27;self&#x27;/);
+});
+test('new enquiry routes avoid the existing API service and match the frontend', () => {
+  const config = JSON.parse(readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
+  const routes = config.assets.run_worker_first;
+  assert.deepEqual(routes, ['/partnership-enquiry', '/partnership-enquiry/config']);
+  assert.equal(routes.some(path => path.startsWith('/api/')), false);
+  const client = readFileSync(new URL('../assets/agency-form.js', import.meta.url), 'utf8');
+  assert.ok(client.includes("const endpoint = '" + routes[0] + "'"));
 });
