@@ -22,7 +22,7 @@
   const button = document.getElementById('send-brief');
   const clear = document.getElementById('clear-form');
   const status = document.getElementById('form-status');
-  const endpoint = '/partnership-enquiry';
+  const endpoint = 'https://formspree.io/f/xojkplda';
   let ready = false, sending = false;
   const unavailable = 'The enquiry form is temporarily unavailable. Please email hello@yourbloom.site.';
   function roleChanged() {
@@ -38,13 +38,10 @@
   if (['brand', 'creator', 'agency', 'event'].includes(role)) form.querySelector(`[name="audience"][value="${role}"]`).checked = true;
   form.querySelectorAll('[name="audience"]').forEach(e => e.addEventListener('change', roleChanged));
   roleChanged();
-  async function checkAvailability() {
-    try {
-      const response = await fetch(endpoint + '/config', { cache: 'no-store', credentials: 'same-origin', signal: AbortSignal.timeout(8000) });
-      const config = await response.json(); ready = response.ok && config.available === true;
-    } catch { ready = false; }
-    button.disabled = !ready;
-    status.textContent = ready ? '' : unavailable;
+  function checkAvailability() {
+    ready = true;
+    button.disabled = false;
+    status.textContent = '';
   }
   function validate() {
     const errors = [];
@@ -68,29 +65,28 @@
     event.preventDefault();
     if (sending || !ready) return;
     if (!validate()) return;
-    const values = Object.fromEntries(new FormData(form));
-    for (const key of ['adult', 'future', 'privacy']) if (key in values) values[key] = values[key] === 'on';
+    const payload = new FormData(form);
+    payload.set('_subject', 'YourBloom — ' + (payload.get('audience') || 'New enquiry'));
     sending = true; button.disabled = true; clear.disabled = true; button.textContent = 'Sending…';
     const controls = [...form.querySelectorAll('input,select,textarea')].filter(e => !e.disabled);
     controls.forEach(e => { e.disabled = true; });
     status.textContent = 'Sending your enquiry…';
     try {
-      const response = await fetch(endpoint, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values), signal: AbortSignal.timeout(15000) });
-      const result = await response.json();
-      if (!response.ok || result.ok !== true) {
-        const messages = {
-          invalid_fields: 'Please check your details and try again.', privacy_required: 'Please confirm the privacy acknowledgement.',
-          brief_too_long: 'Please shorten your brief and optional details, then try again.', too_large: 'Please shorten your brief and try again.',
-          rate_limited: 'Please wait a little before sending another enquiry.', unavailable,
-          delivery_unconfirmed: 'We could not confirm delivery. Please email hello@yourbloom.site before sending again.'
-        };
-        status.textContent = messages[result.code] || messages.delivery_unconfirmed;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: payload,
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) {
+        status.textContent = 'Your enquiry could not be submitted. Please email hello@yourbloom.site or try again later.';
         return;
       }
-      form.reset(); status.textContent = 'Your enquiry has been delivered. We’ll reply using the email you provided.';
+      form.reset();
+      status.textContent = 'Your enquiry has been submitted. We’ll reply using the email you provided.';
       status.focus();
     } catch {
-      status.textContent = 'We could not confirm delivery. Please email hello@yourbloom.site before sending again.';
+      status.textContent = 'We could not confirm submission. Please email hello@yourbloom.site before sending again.';
     } finally {
       controls.forEach(e => { e.disabled = false; }); roleChanged();
       sending = false; clear.disabled = false; button.textContent = 'Send your brief'; button.disabled = !ready;
