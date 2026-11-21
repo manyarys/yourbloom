@@ -105,6 +105,7 @@ details>p{color:var(--text)}
 .demo-note{border-radius:0;border:1px solid var(--rose);border-left:6px solid var(--rose)}
 .role-option label{border-radius:0;border-color:var(--deep);font-weight:600}
 .field input,.field select,.field textarea{border-radius:0;border-color:var(--deep);background:var(--paper)}
+.field .checkbox input{width:20px;min-height:20px;height:20px;padding:0}
 .field label{font-weight:600}
 .brief-preview{border-radius:0;border-color:var(--deep)}
 .brief-preview h2{font-family:var(--display);font-weight:1000;letter-spacing:-.025em}

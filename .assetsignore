@@ -1,0 +1,13 @@
+src/
+tests/
+docs/
+node_modules/
+.git/
+.vscode/
+.dev.vars*
+.env*
+wrangler.jsonc
+package.json
+package-lock.json
+README*
+*.zip
