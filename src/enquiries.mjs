@@ -1,3 +1,4 @@
+import { createCourseRouter } from './course.mjs';
 const ENDPOINT = '/partnership-enquiry';
 const MAX_BYTES = 16384;
 const COMMON = ['name', 'email', 'market', 'deadline', 'message'];
@@ -90,8 +91,10 @@ export function validateEnquiry(data) {
 }
 
 export function createWorker(outbound = fetch) {
+  const courseRouter = createCourseRouter(outbound);
   return { async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/course-api/')) return courseRouter(request, env);
     if (url.pathname !== ENDPOINT && url.pathname !== ENDPOINT + '/config') {
       return env.ASSETS.fetch(request);
     }

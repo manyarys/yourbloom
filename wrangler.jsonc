@@ -11,7 +11,8 @@
     "binding": "ASSETS",
     "run_worker_first": [
       "/partnership-enquiry",
-      "/partnership-enquiry/config"
+      "/partnership-enquiry/config",
+      "/course-api/*"
     ]
   },
   "compatibility_flags": [
