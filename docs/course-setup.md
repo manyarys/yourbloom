@@ -1,12 +1,12 @@
 # YourBloom course page and PDF delivery
 
-Public page: `https://yourbloom.site/learn`. Working course title: **Creator Partnerships**. Price: **$190 USD**, one payment. The course PDF will be authored separately using this page's art direction. The new page does not replace the unrelated legacy `course.html` program or `thankyou.html`.
+Public page: `https://yourbloom.site/learn`. Course title: **Creator Growth & Brand Deals**. Price: **$190 USD**, one payment. The course has a 72-page creator-facing edition covering content, audience growth, commercial work and SMM/agent decisions. Its PDF remains private until the owner authorises paid release. The new page does not replace the unrelated legacy `course.html` program or `thankyou.html`.
 
 ## Current state
 
 The page is ready to review. Enrollment intentionally stays closed until the private PDF, Stripe configuration and launch switch are all ready. The public button shows an enrollment information dialog. There are no fake payments, automatic email promises, invented testimonials or public course downloads.
 
-`assets/course/editorial-portrait-v2.webp` is a generated editorial model, not Maria or a course instructor. The original YourBloom flower logo is unchanged. The acrylic artwork reuses the approved Instagram visual. Local fonts Anton and Mrs Saint Delafield are distributed under the accompanying SIL OFL licenses. Colors: raspberry `#C94070`, cream `#FBF6F0`, charcoal `#191519`.
+The hero uses Maria’s supplied portrait, `assets/maria-portrait.webp`, unchanged. Previous editorial model assets remain available for existing references but are no longer used on the creator landing pages. The original YourBloom flower logo is unchanged. The public cover preview matches the creator-facing edition; the complete PDF is not part of the public repository. Local fonts Anton and Mrs Saint Delafield are distributed under the accompanying SIL OFL licenses. Colors: raspberry `#C94070`, cream `#FBF6F0`, charcoal `#191519`.
 
 ## Stripe and Cloudflare setup, when the course is ready
 

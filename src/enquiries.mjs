@@ -4,20 +4,20 @@ const MAX_BYTES = 16384;
 const COMMON = ['name', 'email', 'market', 'deadline', 'message'];
 const ROLE_FIELDS = {
   brand: ['company', 'website', 'budget'],
-  creator: ['profile', 'niche', 'preferences', 'adult', 'future'],
+  creator: ['profile', 'niche', 'support', 'preferences', 'adult', 'future'],
   agency: ['company', 'website', 'requirements'],
   event: ['company', 'website', 'budget', 'event', 'location', 'rights']
 };
 const LABELS = {
   name: 'Name', email: 'Email', market: 'Market', deadline: 'Preferred timing',
   message: 'Brief', company: 'Company / agency', website: 'Website', budget: 'Creator / event budget',
-  profile: 'Creator profile', niche: 'Content focus', preferences: 'Collaboration preferences',
+  profile: 'Creator profile', niche: 'Content focus', support: 'Support needed', preferences: 'Creator goals / support context',
   adult: 'Adult creator', future: 'Future relevant opportunities', requirements: 'Agency requirements',
   event: 'Event / project', location: 'Event location', rights: 'Partnership rights / support'
 };
 const LIMITS = { name: 120, email: 254, market: 180, deadline: 120, message: 1800,
   company: 180, website: 400, budget: 100, profile: 400, niche: 180,
-  preferences: 700, requirements: 700, event: 180, location: 180, rights: 700 };
+  support: 120, preferences: 700, requirements: 700, event: 180, location: 180, rights: 700 };
 
 function json(body, status = 200, extra = {}) {
   return new Response(JSON.stringify(body), { status, headers: {

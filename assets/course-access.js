@@ -25,7 +25,7 @@ async function checkPayment() {
   try {
     const response = await api('access');
     const data = await response.json();
-    if (response.ok && data.ok === true && data.ready === true) state('YOURS TO EXPLORE.', 'Your payment is confirmed. Download your Creator Partnerships PDF and work through it at your own pace.', true);
+    if (response.ok && data.ok === true && data.ready === true) state('YOURS TO EXPLORE.', 'Your payment is confirmed. Download your Creator Growth & Brand Deals PDF and work through it at your own pace.', true);
     else if (response.status === 202) state('ONE MOMENT MORE.', 'Your payment is still processing. Your PDF will unlock once it is confirmed. You can check again below.', false, true);
     else if ([400, 403, 404].includes(response.status)) state('LET’S CHECK THE LINK.', 'This link could not be verified for this course. Open the access link from your checkout, or contact YourBloom with your order confirmation.');
     else state('LET’S TRY AGAIN.', 'Course access is temporarily unavailable. Keep your checkout confirmation and try again shortly. Contact YourBloom if you need help.', false, true);
@@ -39,7 +39,7 @@ download.addEventListener('click', async () => {
     const response = await api('download');
     if (!response.ok || !response.headers.get('Content-Type')?.includes('application/pdf')) throw new Error('download_unavailable');
     const blobUrl = URL.createObjectURL(await response.blob());
-    const link = document.createElement('a'); link.href = blobUrl; link.download = 'YourBloom-Creator-Partnerships.pdf';
+    const link = document.createElement('a'); link.href = blobUrl; link.download = 'YourBloom-Creator-Growth-and-Brand-Deals.pdf';
     document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
     status.textContent = 'Your download is ready. Enjoy your course—and keep this access link private.';
   } catch { status.textContent = 'The download could not be completed. Please try again or contact YourBloom with your order confirmation.'; }

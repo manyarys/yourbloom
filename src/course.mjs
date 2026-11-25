@@ -126,7 +126,7 @@ export function createCourseRouter(outbound = fetch) {
       if (action === 'access') return json({ ok: true, ready: true });
       const file = await env.COURSE_FILES.get(COURSE.file);
       if (!file?.body) return json({ ok: false, code: 'unavailable' }, 503);
-      return new Response(file.body, { headers: { ...privateHeaders, 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename="YourBloom-Creator-Partnerships.pdf"' } });
+      return new Response(file.body, { headers: { ...privateHeaders, 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename="YourBloom-Creator-Growth-and-Brand-Deals.pdf"' } });
     } catch (error) {
       if (error.message === 'invalid_body' || error instanceof SyntaxError || error instanceof TypeError) return json({ ok: false, code: 'invalid_request' }, 400);
       if (error.message === 'session_not_found') return json({ ok: false, code: 'invalid_session' }, 404);

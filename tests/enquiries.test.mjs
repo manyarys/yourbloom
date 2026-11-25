@@ -62,7 +62,7 @@ test('confirmed delivery includes every populated field and returns success', as
 for (const role of ['creator', 'agency', 'event']) {
   test('delivers complete ' + role + ' details', async () => {
     const extras = {
-      creator: { profile: 'https://example.com/creator', niche: 'Travel', preferences: 'Editorial', adult: true, future: false },
+      creator: { profile: 'https://example.com/creator', niche: 'Travel', support: 'SMM & content', preferences: 'Editorial', adult: true, future: false },
       agency: { company: 'Example agency', website: 'https://example.com', requirements: 'Written approvals' },
       event: { event: 'Sample event', location: 'Online', rights: 'Creator attendance', budget: 'Not yet set' }
     }[role];

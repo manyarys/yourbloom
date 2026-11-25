@@ -1,0 +1,22 @@
+
+/* Creator-facing copy in the existing YourBloom visual system. */
+.site-nav{gap:1.2rem}.hero .lead{max-width:42rem}.site-footer .footer-col h2{font-size:1rem}.section .cards{margin-top:2.2rem}.section>.wrap>.copy,.section>.wrap>.deliverables{max-width:54rem;margin-top:1.6rem}.section>.wrap>h2{margin-bottom:1.4rem}
+.flat-cover{margin:0 auto;width:min(100%,370px);border:7px solid #c94070}.flat-cover img{display:block;width:100%;height:auto;object-fit:contain}.offer-art{min-height:0}.offer-copy>p:not(.eyebrow),.offer-points li,.curriculum p,.fit-copy li,.questions details p{font-size:16px;line-height:1.65}.hero-note,.availability,.topic-label,.format-tag,.price span,.section-caption{font-size:14px!important;line-height:1.6!important}.offer-points li:before,.fit-copy li:before{content:'+'}.format-tag{transform:none}.hero-script{font-size:clamp(54px,7.5vw,105px)}.course-footer .shell>p{margin:.75rem 0;font-size:14px}.course-header .brand-type{font-family:DM Display,Arial,sans-serif}.form-intro{max-width:42rem}
+@media(max-width:760px){.flat-cover{max-width:300px}.offer-sheet{padding:35px 23px;gap:32px}.fit-grid h2{font-size:clamp(43px,11vw,70px)}.hero-script{font-size:54px}.giant-title .script{font-size:60px}.inside-intro>.script{position:static;transform:none;margin-top:15px}.curriculum article{gap:16px;grid-template-columns:30px 1fr}.topic-label{display:none}.header-row nav{gap:16px}.header-cta{display:none}}
+
+
+/* Maria's supplied portrait: complete photo, straight frame, one personal identity. */
+.hero-art.maria-feature{width:min(100%,420px);justify-self:end;margin:0 12px 12px 0}
+.hero-art.maria-feature img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;clip-path:none;border:6px solid var(--cream);box-shadow:12px 12px 0 var(--rose)}
+.maria-photo img{height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;border:1px solid var(--line)}
+.hero-note{font-size:14px}
+.maria-hero .hero-stage{display:grid;grid-template-columns:1.1fr .9fr;grid-template-areas:"heading portrait" "copy portrait";align-items:start;gap:25px 55px;min-height:0;padding-top:48px;padding-bottom:66px}
+.maria-hero .hero-heading{grid-area:heading}
+.maria-hero .hero-heading h1{font-size:clamp(100px,12.1vw,170px);max-width:100%;letter-spacing:-2px}
+.maria-hero .hero-script{position:static;max-width:100%;font-size:clamp(48px,5.8vw,82px);line-height:1.1;transform:rotate(-7deg);white-space:normal;margin:20px 0 0 4px}
+.maria-hero .hero-portrait{position:relative;grid-area:portrait;right:auto;bottom:auto;width:100%;height:auto;aspect-ratio:auto;margin:0 12px 12px 0;align-self:center;overflow:visible;border:6px solid var(--cream);box-shadow:12px 12px 0 var(--rose)}
+.maria-hero .hero-portrait img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;transform:none}
+.maria-hero .hero-copy{grid-area:copy;margin:0;max-width:100%}
+.maria-hero .hero-copy>p:first-child{max-width:430px}
+@media(max-width:1100px){.maria-hero .hero-stage{gap:22px 35px}.maria-hero .hero-heading h1{font-size:12.1vw}}
+@media(max-width:760px){.hero-art.maria-feature{width:min(100% - 8px,420px);margin:0 8px 8px 0;justify-self:center}.hero-art.maria-feature img{box-shadow:8px 8px 0 var(--rose);border-width:4px}.hero-note{max-width:100%;line-height:1.6}.maria-hero .hero-stage{grid-template-columns:1fr;grid-template-areas:"heading" "portrait" "copy";gap:28px;padding-top:28px;padding-bottom:42px}.maria-hero .hero-heading h1{font-size:clamp(100px,24vw,160px);letter-spacing:-1.6px}.maria-hero .hero-script{font-size:clamp(48px,12vw,75px);margin:18px 0 0 3px}.maria-hero .hero-portrait{width:min(100% - 8px,420px);margin:0 8px 8px 0;justify-self:center;box-shadow:8px 8px 0 var(--rose);border-width:4px}.maria-hero .hero-copy{margin:0}.maria-hero .hero-note{text-align:left}}

@@ -26,7 +26,7 @@
   let ready = false, sending = false;
   const unavailable = 'The enquiry form is temporarily unavailable. Please email hello@yourbloom.site.';
   function roleChanged() {
-    const role = form.querySelector('[name="audience"]:checked')?.value || 'brand';
+    const role = form.querySelector('[name="audience"]:checked')?.value || 'creator';
     form.querySelectorAll('[data-for-roles]').forEach(group => {
       const visible = group.dataset.forRoles.split(' ').includes(role); group.hidden = !visible;
       group.querySelectorAll('input,select,textarea').forEach(field => { field.disabled = !visible; field.required = visible && field.dataset.required === 'true'; });
@@ -83,13 +83,13 @@
         return;
       }
       form.reset();
-      status.textContent = 'Your enquiry has been submitted. We’ll reply using the email you provided.';
+      status.textContent = 'Your enquiry has been submitted. I’ll reply using the email you provided.';
       status.focus();
     } catch {
       status.textContent = 'We could not confirm submission. Please email hello@yourbloom.site before sending again.';
     } finally {
       controls.forEach(e => { e.disabled = false; }); roleChanged();
-      sending = false; clear.disabled = false; button.textContent = 'Send your brief'; button.disabled = !ready;
+      sending = false; clear.disabled = false; button.textContent = 'Send your enquiry'; button.disabled = !ready;
     }
   });
   clear.addEventListener('click', () => { if (!sending) { form.reset(); roleChanged(); status.textContent = ready ? '' : unavailable; } });
