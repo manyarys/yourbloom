@@ -20,7 +20,7 @@ async function loadEnrollment() {
     const url = new URL(data.checkoutUrl);
     if (url.protocol !== 'https:' || url.hostname !== 'buy.stripe.com' || url.username || url.password) return;
     checkoutUrl = url.href;
-    document.querySelectorAll('[data-enroll]').forEach(link => { link.href = checkoutUrl; });
+    document.querySelectorAll('[data-enroll]').forEach(link => { link.href = checkoutUrl; link.textContent = 'ENROLL · $190 USD'; });
     document.querySelectorAll('[data-availability]').forEach(node => { node.textContent = 'One-time payment. PDF download after confirmed checkout.'; });
     const answer = document.querySelector('[data-sales-answer]');
     if (answer) answer.textContent = 'Yes. Use the course button to pay $190 USD securely through Stripe. Your course is available to download after payment is confirmed.';
