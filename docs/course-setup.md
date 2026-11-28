@@ -6,7 +6,7 @@ Public page: `https://yourbloom.site/learn`. Course title: **Creator Growth & Br
 
 The page is ready to review. Enrollment intentionally stays closed until the private PDF, Stripe configuration and launch switch are all ready. The public button shows an enrollment information dialog. There are no fake payments, automatic email promises, invented testimonials or public course downloads.
 
-The hero uses Maria’s supplied portrait, `assets/maria-portrait.webp`, unchanged. Previous editorial model assets remain available for existing references but are no longer used on the creator landing pages. The original YourBloom flower logo is unchanged. The public cover preview matches the creator-facing edition; the complete PDF is not part of the public repository. Local fonts Anton and Mrs Saint Delafield are distributed under the accompanying SIL OFL licenses. Colors: raspberry `#C94070`, cream `#FBF6F0`, charcoal `#191519`.
+The course hero uses the original editorial artwork, a woman in a raspberry blazer with charcoal and raspberry brushstrokes. Maria’s actual portrait appears on the About page. The home page uses the original angular editorial collage. The course cover is mounted as one rotated object over cut paper. The original YourBloom flower logo is unchanged. The public cover preview matches the creator-facing edition; the complete PDF is not part of the public repository. Local fonts Anton and Mrs Saint Delafield are distributed under the accompanying SIL OFL licenses. Colors: raspberry `#C94070`, cream `#FBF6F0`, charcoal `#191519`.
 
 ## Stripe and Cloudflare setup, when the course is ready
 
